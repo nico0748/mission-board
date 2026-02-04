@@ -1,0 +1,285 @@
+import { useEffect, useMemo, useState } from 'react';
+import { seedMissions, seedRequests, seedShowcase } from './data/seed';
+import { usePersistentState } from './hooks/usePersistentState';
+import { AppShell } from './components/templates/AppShell';
+import type {
+  ClearEntry,
+  Course,
+  Mission,
+  MissionRequest,
+  Role
+} from './types';
+import './styles/theme.css';
+import './styles/app.css';
+import './index.css';
+
+const DATA_VERSION = 'seed-20250204';
+
+const courses: Course[] = [
+  'Scratch',
+  'Unity',
+  'LEGO SPIKE Basic',
+  'LEGO SPIKE Prime',
+  '3Dペン',
+  'Blender + 3D造形'
+];
+
+type ThemeKey = 'warm' | 'cool' | 'dark';
+type MissionFormState = Omit<Mission, 'id' | 'clears'>;
+
+function createEmptyMissionForm(): MissionFormState {
+  return {
+    title: '',
+    description: '',
+    course: 'Scratch',
+    difficulty: 1,
+    missionType: '機能系',
+    createdBy: 'teacher',
+    status: 'active',
+    participants: 5
+  };
+}
+
+function App() {
+  const [role, setRole] = useState<Role>('general');
+  const [adminPin, setAdminPin] = usePersistentState<string>('adminPin', () => '2468');
+  const [theme, setTheme] = usePersistentState<ThemeKey>('theme', () => 'warm');
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [activeCourseIndex, setActiveCourseIndex] = useState(0);
+
+  const [missions, setMissions] = usePersistentState<Mission[]>('missions', () => seedMissions);
+  const [requests, setRequests] =
+    usePersistentState<MissionRequest[]>('missionRequests', () => seedRequests);
+  const [showcase, setShowcase] =
+    usePersistentState<ShowcaseEntry[]>('showcaseEntries', () => seedShowcase);
+
+  const [missionForm, setMissionForm] = useState<MissionFormState>(createEmptyMissionForm);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  useEffect(() => {
+    document.body.setAttribute('data-theme', theme);
+  }, [theme]);
+
+  // data versioning: if version mismatch, reseed local data
+  useEffect(() => {
+    const storedVersion = localStorage.getItem('mission-board:dataVersion');
+    if (storedVersion !== DATA_VERSION) {
+      setMissions(seedMissions);
+      setRequests(seedRequests);
+      setShowcase(seedShowcase);
+      localStorage.setItem('mission-board:dataVersion', DATA_VERSION);
+    }
+  }, [setMissions, setRequests, setShowcase]);
+
+  // migrate old data without participants
+  useEffect(() => {
+    const missing = missions.some((m) => m.participants === undefined);
+    if (missing) {
+      setMissions((ms) =>
+        ms.map((m) =>
+          m.participants === undefined ? { ...m, participants: Math.max(3, (m.clears?.length || 0) + 2) } : m
+        )
+      );
+    }
+  }, [missions, setMissions]);
+
+  const stats = useMemo(() => {
+    const total = missions.length;
+    const cleared = missions.reduce((sum, m) => sum + (m.clears?.length || 0), 0);
+    const active = missions.filter((m) => m.status === 'active').length;
+    return { total, cleared, active };
+  }, [missions]);
+
+  const courseMissions = useMemo(() => {
+    return courses.map((course) =>
+      missions.filter((m) => {
+        return m.course === course;
+      })
+    );
+  }, [missions]);
+
+  const activeList = courseMissions[activeCourseIndex] ?? [];
+
+  const clearTickerItems = useMemo(
+    () =>
+      missions
+        .flatMap((m) =>
+          m.clears.map((c) => ({
+            id: c.id,
+            missionTitle: m.title,
+            course: m.course,
+            studentName: c.studentName,
+            clearedAt: c.clearedAt
+          }))
+        )
+        .sort((a, b) => (a.clearedAt < b.clearedAt ? 1 : -1))
+        .slice(0, 16),
+    [missions]
+  );
+
+  const handleSubmitMission = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!missionForm.title.trim()) return;
+    if (editingId) {
+      setMissions(
+        missions.map((m) =>
+          m.id === editingId
+            ? { ...m, ...missionForm, clears: m.clears }
+            : m
+        )
+      );
+    } else {
+      const newMission: Mission = {
+        id: crypto.randomUUID(),
+        ...missionForm,
+        clears: []
+      };
+      setMissions([newMission, ...missions]);
+    }
+    setEditingId(null);
+    setMissionForm(createEmptyMissionForm());
+  };
+
+  const handleEditMission = (mission: Mission) => {
+    setEditingId(mission.id);
+    const { id, clears, ...rest } = mission;
+    setMissionForm(rest);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleDeleteMission = (id: string) => {
+    if (!confirm('このミッションを削除しますか？')) return;
+    setMissions(missions.filter((m) => m.id !== id));
+  };
+
+  const handleClearRegister = (missionId: string, studentName: string) => {
+    if (!studentName.trim()) return;
+    const entry: ClearEntry = {
+      id: crypto.randomUUID(),
+      studentName,
+      clearedAt: new Date().toISOString()
+    };
+    setMissions(
+      missions.map((m) => (m.id === missionId ? { ...m, clears: [entry, ...m.clears] } : m))
+    );
+  };
+
+  const handleRequestSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = new FormData(e.currentTarget);
+    const title = (form.get('title') as string).trim();
+    if (!title) return;
+    const newRequest: MissionRequest = {
+      id: crypto.randomUUID(),
+      requesterName: (form.get('requesterName') as string)?.trim() || 'ななし',
+      title,
+      detail: (form.get('detail') as string)?.trim() || '',
+      course: (form.get('course') as Course) || undefined,
+      missionType: (form.get('missionType') as MissionType) || undefined,
+      status: 'pending',
+      createdAt: new Date().toISOString()
+    };
+    setRequests([newRequest, ...requests]);
+    e.currentTarget.reset();
+  };
+
+  const approveRequest = (request: MissionRequest) => {
+    const newMission: Mission = {
+      id: crypto.randomUUID(),
+      title: request.title,
+      description: request.detail || '（依頼内容より作成）',
+      course: request.course || 'Scratch',
+      difficulty: 1,
+      missionType: request.missionType || 'その他',
+      createdBy: 'student',
+      status: 'active',
+      participants: 5,
+      clears: []
+    };
+    setMissions([newMission, ...missions]);
+    setRequests(
+      requests.map((r) =>
+        r.id === request.id
+          ? { ...r, status: 'approved', approvedAsMissionId: newMission.id }
+          : r
+      )
+    );
+  };
+
+  const rejectRequest = (requestId: string) => {
+    setRequests(requests.map((r) => (r.id === requestId ? { ...r, status: 'rejected' } : r)));
+  };
+
+  const resetData = () => {
+    if (!confirm('すべてのデータを初期状態に戻しますか？')) return;
+    setMissions(seedMissions);
+    setRequests(seedRequests);
+    setShowcase(seedShowcase);
+    localStorage.setItem('mission-board:dataVersion', DATA_VERSION);
+  };
+
+  const requestAdminMode = () => {
+    if (role === 'admin') return;
+    const input = prompt('Admin PIN を入力してください');
+    if (input === null) return;
+    if (input === adminPin) {
+      setRole('admin');
+    } else {
+      alert('PIN が違います');
+      setRole('general');
+    }
+  };
+
+  const handlePinChange = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = new FormData(e.currentTarget);
+    const current = (form.get('currentPin') as string) || '';
+    const next = (form.get('nextPin') as string) || '';
+    if (current !== adminPin) {
+      alert('現在のPINが一致しません');
+      return;
+    }
+    if (next.trim().length < 4) {
+      alert('PINは4桁以上にしてください');
+      return;
+    }
+    setAdminPin(next.trim());
+    alert('PINを更新しました');
+    e.currentTarget.reset();
+  };
+
+  return (
+    <AppShell
+      role={role}
+      setRole={setRole}
+      theme={theme}
+      setTheme={setTheme}
+      courses={courses}
+      courseMissions={courseMissions}
+      activeCourseIndex={activeCourseIndex}
+      setActiveCourseIndex={setActiveCourseIndex}
+      stats={stats}
+      showcase={showcase}
+      adminVisible={role === 'admin'}
+      missionForm={missionForm}
+      setMissionForm={setMissionForm}
+      editingId={editingId}
+      onSubmitMission={handleSubmitMission}
+      onResetMissionForm={() => { setEditingId(null); setMissionForm(createEmptyMissionForm()); }}
+      onEditMission={handleEditMission}
+      onDeleteMission={handleDeleteMission}
+      onClearRegister={handleClearRegister}
+      requests={requests}
+      approveRequest={approveRequest}
+      rejectRequest={rejectRequest}
+      handlePinChange={handlePinChange}
+      handleRequestSubmit={handleRequestSubmit}
+      clearTickerItems={clearTickerItems}
+      settingsOpen={settingsOpen}
+      setSettingsOpen={setSettingsOpen}
+      requestAdminMode={requestAdminMode}
+      resetData={resetData}
+    />
+  );
+}
+
+export default App;

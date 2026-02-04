@@ -1,0 +1,86 @@
+.pill,
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 13px;
+}
+
+.pill.soft {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.pill.active {
+  background: linear-gradient(120deg, var(--accent), var(--accent-2));
+  color: #0b1321;
+  font-weight: 700;
+  border: none;
+}
+
+.tag.success {
+  background: rgba(99, 240, 197, 0.16);
+  border-color: rgba(99, 240, 197, 0.4);
+}
+
+.tag.warning {
+  background: rgba(255, 180, 90, 0.14);
+  border-color: rgba(255, 180, 90, 0.5);
+}
+
+.tag.soft {
+  opacity: 0.8;
+}
+
+.pill-icon {
+  font-size: 14px;
+}
+
+.btn {
+  border: none;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.08s ease, opacity 0.1s ease;
+}
+
+.btn.sm {
+  padding: 8px 10px;
+  font-size: 13px;
+}
+
+.btn.primary {
+  background: linear-gradient(120deg, var(--accent), var(--accent-2));
+  color: #0b1321;
+}
+
+.btn.ghost {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn.danger,
+.btn.ghost-danger {
+  border-color: rgba(255, 123, 123, 0.6);
+}
+
+.btn.danger {
+  background: #ff7b7b;
+  color: #1b0f0f;
+}
+
+.btn.ghost-danger {
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffc5c5;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
