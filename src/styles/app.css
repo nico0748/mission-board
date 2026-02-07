@@ -90,7 +90,9 @@
   font-size: clamp(28px, 3.4vw, 38px);
 }
 
-.furigana { display: none; }
+.furigana {
+  display: none;
+}
 
 .lede {
   display: none;
@@ -149,6 +151,14 @@
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+  /* Push to the right */
 }
 
 .panel-header.sticky {
@@ -403,12 +413,15 @@ label {
   .layout {
     grid-template-columns: 1fr;
   }
+
   .hero {
     grid-template-columns: 1fr;
   }
+
   .board-carousel {
     grid-template-columns: 1fr;
   }
+
   .carousel-btn {
     display: none;
   }
