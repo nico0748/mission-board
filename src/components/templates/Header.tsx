@@ -7,7 +7,7 @@ type Props = {
   onReset: () => void;
 };
 
-export const Header: React.FC<Props> = ({ role, onAvatarClick, onReset }) => (
+export const Header: React.FC<Props> = React.memo(({ role, onAvatarClick, onReset }) => (
   <header className="topbar">
     <div className="brand">
       <span className="logo-dot" />
@@ -25,4 +25,4 @@ export const Header: React.FC<Props> = ({ role, onAvatarClick, onReset }) => (
       </button>
     </div>
   </header>
-);
+));

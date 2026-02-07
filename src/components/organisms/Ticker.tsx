@@ -5,7 +5,7 @@ import './organisms.css';
 
 type Item = { id: string; missionTitle: string; course: Course; studentName: string; clearedAt: string };
 
-export const Ticker: React.FC<{ items: Item[] }> = ({ items }) => {
+export const Ticker: React.FC<{ items: Item[] }> = React.memo(({ items }) => {
   if (!items.length) {
     return (
       <footer className="ticker">
@@ -27,4 +27,4 @@ export const Ticker: React.FC<{ items: Item[] }> = ({ items }) => {
       </div>
     </footer>
   );
-};
+});

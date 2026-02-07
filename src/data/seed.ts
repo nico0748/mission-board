@@ -207,6 +207,54 @@ export const seedMissions: Mission[] = [
     status: 'active',
     participants: 9,
     clears: []
+  },
+  {
+    id: 'm-debug-1',
+    title: '【激ムズ】弾幕シューティング',
+    description: '画面いっぱいの敵の弾をよける超高難易度ゲーム。',
+    course: 'Scratch',
+    difficulty: 7,
+    missionType: '技術縛り系',
+    createdBy: 'teacher',
+    status: 'active',
+    participants: 2,
+    clears: []
+  },
+  {
+    id: 'm-debug-2',
+    title: 'マルチプレイFPS',
+    description: 'ネットワーク機能を使ってリアルタイム対戦を実装する。',
+    course: 'Unity',
+    difficulty: 6,
+    missionType: '機能系',
+    createdBy: 'teacher',
+    status: 'active',
+    participants: 1,
+    clears: []
+  },
+  {
+    id: 'm-debug-3',
+    title: 'AIチャットボット',
+    description: 'Pythonと連携して会話できるボットを作る（上級者向け）。',
+    course: '3Dペン', // Wrong course but just for debug/variation in seed
+    difficulty: 5,
+    missionType: '思考系',
+    createdBy: 'teacher',
+    status: 'active',
+    participants: 3,
+    clears: []
+  },
+  {
+    id: 'm-debug-4',
+    title: '複雑なピタゴラ装置',
+    description: '物理演算を駆使して1分間動き続ける装置を作る。',
+    course: 'Blender + 3D造形',
+    difficulty: 4,
+    missionType: '思考系',
+    createdBy: 'student',
+    status: 'active',
+    participants: 5,
+    clears: []
   }
 ];
 

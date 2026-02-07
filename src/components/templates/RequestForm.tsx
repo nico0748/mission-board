@@ -8,7 +8,7 @@ type Props = {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 };
 
-export const RequestForm: React.FC<Props> = ({ courses, missionTypes, onSubmit }) => (
+export const RequestForm: React.FC<Props> = React.memo(({ courses, missionTypes, onSubmit }) => (
   <div className="panel admin card" id="request-form">
     <div className="card-head">
       <h3>ミッション依頼フォーム</h3>
@@ -50,4 +50,4 @@ export const RequestForm: React.FC<Props> = ({ courses, missionTypes, onSubmit }
       <Button type="submit">送信</Button>
     </form>
   </div>
-);
+));
