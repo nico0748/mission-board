@@ -7,7 +7,6 @@ type Props = {
 export const Hero: React.FC<Props> = React.memo(({ stats }) => (
   <section className="hero single">
     <div>
-      <p className="eyebrow">授業前5分でアイデア確定</p>
       <h1>今日のミッションを決めよう</h1>
       <div className="stats">
         <div>
