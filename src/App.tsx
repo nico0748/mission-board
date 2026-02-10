@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState, useCallback } from 'react';
 import { seedMissions, seedRequests, seedShowcase } from './data/seed';
 import { usePersistentState } from './hooks/usePersistentState';
+import { useGoogleSheets } from './hooks/useGoogleSheets';
 import { AppShell } from './components/templates/AppShell';
 import type {
   ClearEntry,
@@ -49,7 +50,36 @@ function App() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [activeCourseIndex, setActiveCourseIndex] = useState(0);
 
+  // usePersistentState is still useful for editing/clears if we want to persist local changes on top of sheet data
+  // But for now, let's treat Sheet data as master for the mission list.
   const [missions, setMissions] = usePersistentState<Mission[]>('missions', () => seedMissions);
+  
+  const { data: sheetMissions, loading: sheetLoading, error: sheetError } = useGoogleSheets();
+
+  // Sync Sheet data to filtered missions when loaded
+  useEffect(() => {
+    if (sheetMissions) {
+      console.log('Loaded missions from Sheet:', sheetMissions.length);
+      // Merge strategy: Replace entirely or merge? 
+      // User said "migrate data/seed.ts to Google SpreadSheets".
+      // So we should probably use sheetMissions as the source.
+      // However, `clears` are currently local and not in the sheet. 
+      // If we just replace `missions` with `sheetMissions`, we lose local `clears`.
+      // We need to preserve `clears` from local state if IDs match.
+      
+      setMissions((prevMissions: Mission[]) => {
+        return sheetMissions.map((sheetMsg: Mission) => {
+          const localMatch = prevMissions.find((m: Mission) => m.id === sheetMsg.id);
+          return {
+            ...sheetMsg,
+            clears: localMatch ? localMatch.clears : [], // Preserve clears
+            participants: sheetMsg.participants || localMatch?.participants || 0 // Use sheet participants if present
+          };
+        });
+      });
+    }
+  }, [sheetMissions, setMissions]);
+
   const [requests, setRequests] =
     usePersistentState<MissionRequest[]>('missionRequests', () => seedRequests);
   const [showcase, setShowcase] =
@@ -61,27 +91,28 @@ function App() {
     document.body.setAttribute('data-theme', theme);
   }, [theme]);
 
-  // data versioning: if version mismatch, reseed local data
+  // data versioning: if version mismatch, reseed local data (Only if NO sheet data loaded yet?)
   useEffect(() => {
-    const storedVersion = localStorage.getItem('mission-board:dataVersion');
-    if (storedVersion !== DATA_VERSION) {
-      setMissions(seedMissions);
-      setRequests(seedRequests);
-      setShowcase(seedShowcase);
-      localStorage.setItem('mission-board:dataVersion', DATA_VERSION);
+    if (!sheetMissions) {
+       const storedVersion = localStorage.getItem('mission-board:dataVersion');
+       if (storedVersion !== DATA_VERSION) {
+         setMissions(seedMissions);
+         setRequests(seedRequests);
+         setShowcase(seedShowcase);
+         localStorage.setItem('mission-board:dataVersion', DATA_VERSION);
+       }
     }
-  }, [setMissions, setRequests, setShowcase]);
+  }, [setMissions, setRequests, setShowcase, sheetMissions]);
 
   // migrate old data without participants
   useEffect(() => {
     const missing = missions.some((m) => m.participants === undefined);
     if (missing) {
-      // Cast to any to avoid strict type checks temporarily
-      setMissions(((ms: Mission[]) =>
+      setMissions((ms: Mission[]) =>
         ms.map((m) =>
           m.participants === undefined ? { ...m, participants: Math.max(3, (m.clears?.length || 0) + 2) } : m
         )
-      ) as any);
+      );
     }
   }, [missions, setMissions]);
 

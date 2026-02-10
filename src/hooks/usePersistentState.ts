@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
-export function usePersistentState<T>(key: string, initialValue: () => T): [T, (value: T) => void] {
+export function usePersistentState<T>(key: string, initialValue: () => T): [T, Dispatch<SetStateAction<T>>] {
   const [state, setState] = useState<T>(() => {
     const stored = window.localStorage.getItem(key);
     if (stored) {
       try {
         return JSON.parse(stored) as T;
       } catch {
-        // fall through to default
+        console.error(`Failed to parse stored value for key "${key}"`);
       }
     }
     return initialValue();
