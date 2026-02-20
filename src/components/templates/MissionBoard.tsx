@@ -16,6 +16,7 @@ type Props = {
   onEdit: (m: Mission) => void;
   onDelete: (id: string) => void;
   onClear: (missionId: string, name: string) => void;
+  interval: number;
 };
 
 export const MissionBoard: React.FC<Props> = ({
@@ -26,16 +27,17 @@ export const MissionBoard: React.FC<Props> = ({
   role,
   onEdit,
   onDelete,
-  onClear
+  onClear,
+  interval
 }) => {
   const boardRef = useRef<HTMLElement>(null);
   const { isFullscreen, toggleFullscreen } = useFullscreen(boardRef);
   const [isPaused, setIsPaused] = useState(false);
 
-  // Auto-rotate every 10 seconds unless paused
+  // Auto-rotate based on interval prop (seconds -> ms) unless paused
   useInterval(() => {
     setActiveIndex((activeIndex + 1) % courses.length);
-  }, isPaused ? null : 5000);
+  }, isPaused ? null : interval * 1000);
 
   return (
     <section 

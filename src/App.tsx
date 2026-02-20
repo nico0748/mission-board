@@ -47,6 +47,8 @@ function App() {
   const [role, setRole] = useState<Role>('general');
   const [adminPin, setAdminPin] = usePersistentState<string>('adminPin', () => '2468');
   const [theme, setTheme] = usePersistentState<ThemeKey>('theme', () => 'warm');
+  const [boardInterval, setBoardInterval] = usePersistentState<number>('boardInterval', () => 10);
+  const [tickerDuration, setTickerDuration] = usePersistentState<number>('tickerDuration', () => 30);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [activeCourseIndex, setActiveCourseIndex] = useState(0);
 
@@ -72,8 +74,16 @@ function App() {
           const localMatch = prevMissions.find((m: Mission) => m.id === sheetMsg.id);
           return {
             ...sheetMsg,
-            clears: localMatch ? localMatch.clears : [], // Preserve clears
-            participants: sheetMsg.participants || localMatch?.participants || 0 // Use sheet participants if present
+            // If data is coming from the sheet, it includes clears now. 
+            // We prioritize sheet clears. If sheet has no clears (length 0), we *could* fallback to local, 
+            // but if the sheet is meant to be the source of truth, we should probably stick to it.
+            // However, to be safe during migration: if sheet clears are empty, maybe keep local? 
+            // Actually, if I just want to switch to Sheet 2, I should likely just use sheetMsg.clears.
+            // Let's concat them to ensure we don't lose local clears that haven't been synced?
+            // "migrate data... to Google SpreadSheets" -> eventually local clears should be gone.
+            // For now, I will use sheetMsg.clears if it has data.
+            clears: (sheetMsg.clears && sheetMsg.clears.length > 0) ? sheetMsg.clears : (localMatch ? localMatch.clears : []),
+            participants: sheetMsg.participants || localMatch?.participants || 0 
           };
         });
       });
@@ -137,19 +147,31 @@ function App() {
   const activeList = courseMissions[activeCourseIndex] ?? [];
 
   const clearTickerItems = useMemo(
-    () =>
-      missions
-        .flatMap((m) =>
-          m.clears.map((c) => ({
-            id: c.id,
-            missionTitle: m.title,
-            course: m.course,
-            studentName: c.studentName,
-            clearedAt: c.clearedAt
-          }))
-        )
+    () => {
+      // 1. Filter missions that have clears
+      const missionsWithClears = missions.filter((m) => m.clears && m.clears.length > 0);
+
+      // 2. Map to Ticker Item format (Grouped)
+      const items = missionsWithClears.map((m) => {
+        // Sort clears by date desc to find the latest
+        const sortedClears = [...m.clears].sort((a, b) => (a.clearedAt < b.clearedAt ? 1 : -1));
+        const latestClearAt = sortedClears[0]?.clearedAt || new Date().toISOString();
+        const names = sortedClears.map((c) => c.studentName);
+
+        return {
+          id: m.id,
+          missionTitle: m.title,
+          course: m.course,
+          studentNames: names,
+          clearedAt: latestClearAt
+        };
+      });
+
+      // 3. Sort missions by their latest clear date
+      return items
         .sort((a, b) => (a.clearedAt < b.clearedAt ? 1 : -1))
-        .slice(0, 16),
+        .slice(0, 16);
+    },
     [missions]
   );
 
@@ -316,6 +338,10 @@ function App() {
       setSettingsOpen={setSettingsOpen}
       requestAdminMode={requestAdminMode}
       resetData={resetData}
+      boardInterval={boardInterval}
+      setBoardInterval={setBoardInterval}
+      tickerDuration={tickerDuration}
+      setTickerDuration={setTickerDuration}
     />
   );
 }
