@@ -1,6 +1,7 @@
 node_modules/
 dist/
 .env
+.env.local
 .vscode/
 .DS_Store
 coverage
@@ -15,3 +16,4 @@ lerna-debug.log*
 .pnp/
 .pnp.js
 .cache/
+tsconfig.tsbuildinfo

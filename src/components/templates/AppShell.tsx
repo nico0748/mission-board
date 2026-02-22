@@ -37,11 +37,15 @@ type Props = {
   rejectRequest: (id: string) => void;
   handlePinChange: (e: React.FormEvent<HTMLFormElement>) => void;
   handleRequestSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  clearTickerItems: { id: string; missionTitle: string; course: Course; studentName: string; clearedAt: string }[];
+  clearTickerItems: { id: string; missionTitle: string; course: Course; studentNames: string[]; clearedAt: string }[];
   settingsOpen: boolean;
   setSettingsOpen: (v: boolean) => void;
   requestAdminMode: () => void;
   resetData: () => void;
+  boardInterval: number;
+  setBoardInterval: (n: number) => void;
+  tickerDuration: number;
+  setTickerDuration: (n: number) => void;
 };
 
 export const AppShell: React.FC<Props> = (props) => {
@@ -75,7 +79,11 @@ export const AppShell: React.FC<Props> = (props) => {
     settingsOpen,
     setSettingsOpen,
     requestAdminMode,
-    resetData
+    resetData,
+    boardInterval,
+    setBoardInterval,
+    tickerDuration,
+    setTickerDuration
   } = props;
 
   return (
@@ -92,6 +100,7 @@ export const AppShell: React.FC<Props> = (props) => {
         onEdit={onEditMission}
         onDelete={onDeleteMission}
           onClear={onClearRegister}
+          interval={boardInterval}
         />
         <ShowcasePanel items={showcase} />
       </main>
@@ -112,7 +121,7 @@ export const AppShell: React.FC<Props> = (props) => {
         handlePinChange={handlePinChange}
       />
 
-      <Ticker items={clearTickerItems} />
+      <Ticker items={clearTickerItems} duration={tickerDuration} />
       <SettingsDrawer
         isOpen={settingsOpen}
         close={() => setSettingsOpen(false)}
@@ -122,6 +131,10 @@ export const AppShell: React.FC<Props> = (props) => {
         theme={theme}
         setTheme={setTheme}
         resetData={resetData}
+        boardInterval={boardInterval}
+        setBoardInterval={setBoardInterval}
+        tickerDuration={tickerDuration}
+        setTickerDuration={setTickerDuration}
       />
     </div>
   );

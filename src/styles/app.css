@@ -44,6 +44,20 @@
   align-items: center;
 }
 
+.about-link {
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+}
+
+.about-link:hover {
+  color: var(--accent-2);
+  background: var(--border);
+}
+
 .avatar-btn {
   padding: 6px 8px;
 }
@@ -90,7 +104,9 @@
   font-size: clamp(28px, 3.4vw, 38px);
 }
 
-.furigana { display: none; }
+.furigana {
+  display: none;
+}
 
 .lede {
   display: none;
@@ -143,12 +159,62 @@
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.28);
 }
 
+/* New 3-row layout for Mission Board */
+/* New 3-row layout for Mission Board */
+.board-header-top {
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+}
+
+.board-header-controls {
+  display: flex;
+  justify-content: flex-end;
+  /* Align elements to the right as per standard */
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  margin-bottom: 10px;
+
+  /* Sticky behavior */
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--panel);
+}
+
+/* Ensure tabs are centered or left-aligned within the controls if needed */
+.board-header-controls .course-tabs {
+  margin-right: auto;
+  /* Push buttons to the right, keep tabs on the left/center? Or user said "Middle: Course Selection + Fullscreen" */
+  /* Actually, let's keep justify-content: space-between if we want left tabs and right button */
+  justify-content: space-between;
+  width: 100%;
+}
+
+.board-header-controls .header-actions {
+  /* This class might be redundant now if we use flex on board-header-controls directly */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Remove old sticky from panel-header if it conflicts for this specific board */
+/* We will remove sticky class from the top div in MissionBoard.tsx */
+
 .panel-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+  /* Push to the right */
 }
 
 .panel-header.sticky {
@@ -403,12 +469,15 @@ label {
   .layout {
     grid-template-columns: 1fr;
   }
+
   .hero {
     grid-template-columns: 1fr;
   }
+
   .board-carousel {
     grid-template-columns: 1fr;
   }
+
   .carousel-btn {
     display: none;
   }

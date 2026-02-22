@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="640" viewBox="0 0 960 640" font-family="'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0,0 8,3 0,6" fill="#60a5fa"/>
+    </marker>
+    <marker id="arr-orange" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0,0 8,3 0,6" fill="#f59e0b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="640" fill="#f9f4eb" rx="10"/>
+
+  <!-- Title -->
+  <text x="480" y="30" text-anchor="middle" font-size="15" font-weight="700" fill="#333" letter-spacing="0.3">ミッションボード — コンポーネント・データ構成図</text>
+
+  <!-- ────────── App.tsx OUTER BOX ────────── -->
+  <rect x="16" y="44" width="928" height="570" fill="none" stroke="#ffb869" stroke-width="2.5" rx="12"/>
+  <rect x="24" y="38" width="296" height="14" fill="#f9f4eb"/>
+  <text x="30" y="50" font-size="12" font-weight="700" fill="#e67e22">App.tsx</text>
+  <text x="96" y="50" font-size="10.5" fill="#777">— 状態管理 · イベントハンドラ</text>
+
+  <!-- ────────── LEFT: DATA / HOOKS ────────── -->
+  <rect x="30" y="60" width="204" height="542" fill="#fff8f0" stroke="#ffb869" stroke-width="1" stroke-dasharray="6 3" rx="8"/>
+  <text x="132" y="78" text-anchor="middle" font-size="10.5" font-weight="700" fill="#e67e22" letter-spacing="0.4">データ · フック層</text>
+
+  <!-- useGoogleSheets -->
+  <rect x="42" y="88" width="180" height="84" fill="#dbeafe" stroke="#60a5fa" stroke-width="1.5" rx="7"/>
+  <text x="132" y="110" text-anchor="middle" font-size="11" font-weight="700" fill="#1d4ed8">useGoogleSheets</text>
+  <text x="132" y="127" text-anchor="middle" font-size="10" fill="#2563eb">Google Sheets API</text>
+  <text x="132" y="143" text-anchor="middle" font-size="9.5" fill="#555">ミッションデータ取得</text>
+  <text x="132" y="160" text-anchor="middle" font-size="9" fill="#999">hooks/useGoogleSheets.ts</text>
+
+  <!-- usePersistentState -->
+  <rect x="42" y="186" width="180" height="84" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5" rx="7"/>
+  <text x="132" y="208" text-anchor="middle" font-size="11" font-weight="700" fill="#b45309">usePersistentState</text>
+  <text x="132" y="225" text-anchor="middle" font-size="10" fill="#d97706">localStorage</text>
+  <text x="132" y="241" text-anchor="middle" font-size="9.5" fill="#555">設定 · 依頼 · 作品データ保存</text>
+  <text x="132" y="258" text-anchor="middle" font-size="9" fill="#999">hooks/usePersistentState.ts</text>
+
+  <!-- useInterval -->
+  <rect x="42" y="284" width="180" height="60" fill="#f0fdf4" stroke="#4ade80" stroke-width="1.5" rx="7"/>
+  <text x="132" y="305" text-anchor="middle" font-size="11" font-weight="700" fill="#15803d">useInterval</text>
+  <text x="132" y="321" text-anchor="middle" font-size="9.5" fill="#555">ボード自動スライド</text>
+  <text x="132" y="335" text-anchor="middle" font-size="9" fill="#999">hooks/useInterval.ts</text>
+
+  <!-- useFullscreen -->
+  <rect x="42" y="358" width="180" height="60" fill="#f0fdf4" stroke="#4ade80" stroke-width="1.5" rx="7"/>
+  <text x="132" y="379" text-anchor="middle" font-size="11" font-weight="700" fill="#15803d">useFullscreen</text>
+  <text x="132" y="395" text-anchor="middle" font-size="9.5" fill="#555">全画面表示制御</text>
+  <text x="132" y="409" text-anchor="middle" font-size="9" fill="#999">hooks/useFullscreen.ts</text>
+
+  <!-- types.ts -->
+  <rect x="42" y="432" width="180" height="70" fill="#d1fae5" stroke="#34d399" stroke-width="1.5" rx="7"/>
+  <text x="132" y="452" text-anchor="middle" font-size="11" font-weight="700" fill="#065f46">types.ts</text>
+  <text x="132" y="468" text-anchor="middle" font-size="9.5" fill="#065f46">Mission / MissionRequest</text>
+  <text x="132" y="484" text-anchor="middle" font-size="9.5" fill="#065f46">ShowcaseEntry / ClearEntry</text>
+  <text x="132" y="496" text-anchor="middle" font-size="9" fill="#888">src/types.ts</text>
+
+  <!-- data/seed.ts -->
+  <rect x="42" y="516" width="180" height="60" fill="#ede9fe" stroke="#a78bfa" stroke-width="1.5" rx="7"/>
+  <text x="132" y="537" text-anchor="middle" font-size="11" font-weight="700" fill="#6d28d9">data/seed.ts</text>
+  <text x="132" y="553" text-anchor="middle" font-size="9.5" fill="#555">モックデータ</text>
+  <text x="132" y="567" text-anchor="middle" font-size="9" fill="#999">ミッション / 依頼 / 作品</text>
+
+  <!-- ARROWS: hooks → AppShell -->
+  <line x1="222" y1="130" x2="252" y2="130" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="222" y1="228" x2="252" y2="228" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-orange)"/>
+
+  <!-- ────────── RIGHT: COMPONENT TREE ────────── -->
+  <!-- AppShell container -->
+  <rect x="252" y="60" width="676" height="542" fill="rgba(255,255,255,0.5)" stroke="#ff7f57" stroke-width="1.5" rx="8"/>
+  <text x="268" y="78" font-size="11" font-weight="700" fill="#ff7f57">AppShell</text>
+  <text x="332" y="78" font-size="10" fill="#777">— templates/AppShell.tsx (レイアウト全体)</text>
+
+  <!-- Header (full width) -->
+  <rect x="266" y="88" width="648" height="46" fill="#fff3e0" stroke="#ffb869" stroke-width="1" rx="6"/>
+  <text x="590" y="108" text-anchor="middle" font-size="12" font-weight="700" fill="#333">Header</text>
+  <text x="590" y="125" text-anchor="middle" font-size="9.5" fill="#666">ナビゲーション · ブランド · 設定ドロワー起動 / templates/Header.tsx</text>
+
+  <!-- Hero -->
+  <rect x="266" y="146" width="312" height="46" fill="#fff3e0" stroke="#ffb869" stroke-width="1" rx="6"/>
+  <text x="422" y="166" text-anchor="middle" font-size="12" font-weight="700" fill="#333">Hero</text>
+  <text x="422" y="183" text-anchor="middle" font-size="9.5" fill="#666">統計表示（総数 · クリア · アクティブ）</text>
+
+  <!-- MissionBoard -->
+  <rect x="590" y="146" width="324" height="46" fill="#fee2e2" stroke="#f87171" stroke-width="1" rx="6"/>
+  <text x="752" y="166" text-anchor="middle" font-size="12" font-weight="700" fill="#333">MissionBoard</text>
+  <text x="752" y="183" text-anchor="middle" font-size="9.5" fill="#666">コースタブ切替 · ミッションカード</text>
+
+  <!-- ShowcasePanel -->
+  <rect x="266" y="204" width="312" height="46" fill="#fff3e0" stroke="#ffb869" stroke-width="1" rx="6"/>
+  <text x="422" y="224" text-anchor="middle" font-size="12" font-weight="700" fill="#333">ShowcasePanel</text>
+  <text x="422" y="241" text-anchor="middle" font-size="9.5" fill="#666">生徒作品ショーケース</text>
+
+  <!-- RequestForm -->
+  <rect x="590" y="204" width="324" height="46" fill="#fff3e0" stroke="#ffb869" stroke-width="1" rx="6"/>
+  <text x="752" y="224" text-anchor="middle" font-size="12" font-weight="700" fill="#333">RequestForm</text>
+  <text x="752" y="241" text-anchor="middle" font-size="9.5" fill="#666">ミッション依頼フォーム（一般）</text>
+
+  <!-- AdminPanel -->
+  <rect x="266" y="262" width="312" height="46" fill="#fee2e2" stroke="#f87171" stroke-width="1" rx="6"/>
+  <text x="422" y="282" text-anchor="middle" font-size="12" font-weight="700" fill="#333">AdminPanel</text>
+  <text x="422" y="299" text-anchor="middle" font-size="9.5" fill="#666">ミッションCRUD · 依頼管理 ※Admin専用</text>
+
+  <!-- SettingsDrawer -->
+  <rect x="590" y="262" width="324" height="46" fill="#ede9fe" stroke="#a78bfa" stroke-width="1" rx="6"/>
+  <text x="752" y="282" text-anchor="middle" font-size="12" font-weight="700" fill="#333">SettingsDrawer</text>
+  <text x="752" y="299" text-anchor="middle" font-size="9.5" fill="#666">ロール · テーマ · 初期化 (オーバーレイ)</text>
+
+  <!-- Ticker (full width) -->
+  <rect x="266" y="320" width="648" height="46" fill="#dbeafe" stroke="#60a5fa" stroke-width="1" rx="6"/>
+  <text x="590" y="340" text-anchor="middle" font-size="12" font-weight="700" fill="#333">Ticker</text>
+  <text x="590" y="357" text-anchor="middle" font-size="9.5" fill="#666">クリア通知スクロール帯 (画面下部固定) / organisms/Ticker.tsx</text>
+
+  <!-- Shared components section -->
+  <rect x="266" y="378" width="648" height="84" fill="none" stroke="#d1d5db" stroke-width="1" stroke-dasharray="4 2" rx="6"/>
+  <text x="590" y="396" text-anchor="middle" font-size="10" font-weight="700" fill="#9ca3af" letter-spacing="0.4">共通コンポーネント（Atomic Design）</text>
+
+  <!-- atoms/ -->
+  <rect x="278" y="404" width="192" height="46" fill="#f9fafb" stroke="#d1d5db" stroke-width="1" rx="5"/>
+  <text x="374" y="422" text-anchor="middle" font-size="10.5" font-weight="700" fill="#6b7280">atoms/</text>
+  <text x="374" y="440" text-anchor="middle" font-size="9" fill="#9ca3af">Pill · Tag · Button</text>
+
+  <!-- molecules/ -->
+  <rect x="482" y="404" width="192" height="46" fill="#f9fafb" stroke="#d1d5db" stroke-width="1" rx="5"/>
+  <text x="578" y="422" text-anchor="middle" font-size="10.5" font-weight="700" fill="#6b7280">molecules/</text>
+  <text x="578" y="440" text-anchor="middle" font-size="9" fill="#9ca3af">FilterPill</text>
+
+  <!-- organisms/ -->
+  <rect x="686" y="404" width="216" height="46" fill="#f9fafb" stroke="#d1d5db" stroke-width="1" rx="5"/>
+  <text x="794" y="422" text-anchor="middle" font-size="10.5" font-weight="700" fill="#6b7280">organisms/</text>
+  <text x="794" y="440" text-anchor="middle" font-size="9" fill="#9ca3af">MissionCard · ShowcaseGrid · SettingsDrawer</text>
+
+  <!-- Footer -->
+  <text x="480" y="632" text-anchor="middle" font-size="9" fill="#ccc">React 18 + TypeScript + Vite</text>
+</svg>

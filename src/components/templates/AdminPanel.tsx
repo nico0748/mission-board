@@ -19,7 +19,7 @@ type Props = {
   handlePinChange: (e: React.FormEvent<HTMLFormElement>) => void;
 };
 
-export const AdminPanel: React.FC<Props> = ({
+export const AdminPanel: React.FC<Props> = React.memo(({
   visible,
   courses,
   missionTypes,
@@ -103,9 +103,13 @@ export const AdminPanel: React.FC<Props> = ({
                   })
                 }
               >
-                <option value={1}>★</option>
-                <option value={2}>★★</option>
-                <option value={3}>★★★</option>
+                <option value={1}>Level.1</option>
+                <option value={2}>Level.2</option>
+                <option value={3}>Level.3</option>
+                <option value={4}>Level.4</option>
+                <option value={5}>Level.5</option>
+                <option value={6}>Level.6</option>
+                <option value={7}>Level.7 (MAX)</option>
               </select>
             </label>
             <label>
@@ -224,4 +228,4 @@ export const AdminPanel: React.FC<Props> = ({
       </div>
     </section>
   );
-};
+});

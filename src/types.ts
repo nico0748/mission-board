@@ -6,7 +6,7 @@ export type Course =
   | '3Dペン'
   | 'Blender + 3D造形';
 
-export type Difficulty = 1 | 2 | 3; // ★〜★★★
+export type Difficulty = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
 export type MissionType =
   | '機能系'
