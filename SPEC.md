@@ -57,7 +57,7 @@ index.html               # エントリ（Google Fonts読み込み）
 1) `npm install`  
 2) `npm run dev` で起動（Vite）。
 
-## モックデータ（抜粋）
+## モックデータ
 - ミッション: コース全種、難易度1-3、有効/無効、教師/生徒作成、タイプ各種を網羅。  
 - 依頼: 2件（Scratch/LEGO）。  
 - 作品紹介: 3件（Scratch/LEGO/Unity）。
