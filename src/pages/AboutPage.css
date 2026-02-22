@@ -230,6 +230,61 @@
   margin: 0.5rem auto 1rem;
 }
 
+/* ── Markdown: Details / Summary (toggle list) ── */
+.about-content details {
+  border: 1px solid var(--border, rgba(51, 51, 51, 0.12));
+  border-radius: 8px;
+  margin: 4px 0;
+  background: var(--card, #fbf6ec);
+  overflow: hidden;
+  transition: background 0.15s;
+}
+
+.about-content details[open] {
+  background: var(--panel, #f8f1e3);
+}
+
+.about-content summary {
+  cursor: pointer;
+  padding: 10px 14px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text, #333);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+}
+
+.about-content summary::-webkit-details-marker {
+  display: none;
+}
+
+.about-content summary::before {
+  content: '▶';
+  font-size: 0.65rem;
+  color: var(--accent-2, #ff7f57);
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+
+.about-content details[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.about-content details > *:not(summary) {
+  padding: 0 14px 12px 36px;
+  font-size: 0.9rem;
+  color: var(--muted, #5b5b5b);
+  line-height: 1.7;
+}
+
+/* details が li の直接子になるケース */
+.about-content li > details {
+  margin: 2px 0;
+}
+
 /* ── Markdown: Blockquote ── */
 .about-content blockquote {
   margin: 0.5rem 0 1rem;
