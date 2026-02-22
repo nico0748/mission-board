@@ -44,6 +44,20 @@
   align-items: center;
 }
 
+.about-link {
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+}
+
+.about-link:hover {
+  color: var(--accent-2);
+  background: var(--border);
+}
+
 .avatar-btn {
   padding: 6px 8px;
 }

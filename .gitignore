@@ -16,3 +16,4 @@ lerna-debug.log*
 .pnp/
 .pnp.js
 .cache/
+tsconfig.tsbuildinfo
