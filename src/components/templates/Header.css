@@ -3,8 +3,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 12px clamp(16px, 4vw, 48px);
-  border-bottom: 1px solid var(--border, rgba(51, 51, 51, 0.12));
-  background: var(--panel, #f8f1e3);
+  background: var(--bg, #f0e6d1);
   position: sticky;
   top: 0;
   z-index: 10;
