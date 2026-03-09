@@ -62,26 +62,12 @@ function App() {
   useEffect(() => {
     if (sheetMissions) {
       console.log('Loaded missions from Sheet:', sheetMissions.length);
-      // Merge strategy: Replace entirely or merge? 
-      // User said "migrate data/seed.ts to Google SpreadSheets".
-      // So we should probably use sheetMissions as the source.
-      // However, `clears` are currently local and not in the sheet. 
-      // If we just replace `missions` with `sheetMissions`, we lose local `clears`.
-      // We need to preserve `clears` from local state if IDs match.
       
       setMissions((prevMissions: Mission[]) => {
         return sheetMissions.map((sheetMsg: Mission) => {
           const localMatch = prevMissions.find((m: Mission) => m.id === sheetMsg.id);
           return {
             ...sheetMsg,
-            // If data is coming from the sheet, it includes clears now. 
-            // We prioritize sheet clears. If sheet has no clears (length 0), we *could* fallback to local, 
-            // but if the sheet is meant to be the source of truth, we should probably stick to it.
-            // However, to be safe during migration: if sheet clears are empty, maybe keep local? 
-            // Actually, if I just want to switch to Sheet 2, I should likely just use sheetMsg.clears.
-            // Let's concat them to ensure we don't lose local clears that haven't been synced?
-            // "migrate data... to Google SpreadSheets" -> eventually local clears should be gone.
-            // For now, I will use sheetMsg.clears if it has data.
             clears: (sheetMsg.clears && sheetMsg.clears.length > 0) ? sheetMsg.clears : (localMatch ? localMatch.clears : []),
             participants: sheetMsg.participants || localMatch?.participants || 0 
           };
@@ -306,7 +292,26 @@ function App() {
     e.currentTarget.reset();
   }, [adminPin, setAdminPin]);
 
+  // DEBUG: Remove after diagnosing Sheets issue
+  const sheetsDebugInfo = {
+    hasApiKey: !!import.meta.env.VITE_GOOGLE_SHEETS_API_KEY,
+    hasSpreadsheetId: !!import.meta.env.VITE_GOOGLE_SHEETS_SPREADSHEET_ID,
+    loading: sheetLoading,
+    error: sheetError,
+    loaded: sheetMissions !== null,
+  };
+
   return (
+    <>
+      {(sheetError || !sheetsDebugInfo.hasApiKey || !sheetsDebugInfo.hasSpreadsheetId) && (
+        <div style={{
+          position: 'fixed', top: 0, left: 0, right: 0, zIndex: 9999,
+          background: '#b91c1c', color: '#fff', padding: '8px 16px',
+          fontSize: '12px', fontFamily: 'monospace'
+        }}>
+          [Sheets Debug] apiKey={String(sheetsDebugInfo.hasApiKey)} | spreadsheetId={String(sheetsDebugInfo.hasSpreadsheetId)} | error={sheetError ?? 'none'} | loaded={String(sheetsDebugInfo.loaded)}
+        </div>
+      )}
     <AppShell
       role={role}
       setRole={setRole}
@@ -343,6 +348,7 @@ function App() {
       tickerDuration={tickerDuration}
       setTickerDuration={setTickerDuration}
     />
+    </>
   );
 }
 
