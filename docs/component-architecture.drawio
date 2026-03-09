@@ -1,0 +1,223 @@
+<mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+
+    <!-- Title -->
+    <mxCell id="title" value="Fig. 1  Component Architecture of Mission Board Web Application&lt;br/&gt;&lt;font style=&quot;font-size:11px;font-weight:normal;&quot;&gt;ミッションボード Web アプリケーション コンポーネント構成図&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#1a1a2e;" vertex="1" parent="1">
+      <mxGeometry x="200" y="20" width="1200" height="30" as="geometry" />
+    </mxCell>
+
+    <!-- ===== LEGEND ===== -->
+    <mxCell id="leg-border" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#334155;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="1380" y="60" width="240" height="250" as="geometry" />
+    </mxCell>
+    <mxCell id="leg-title" value="Legend" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontStyle=1;fontColor=#1B3A6B;" vertex="1" parent="1">
+      <mxGeometry x="1392" y="68" width="100" height="20" as="geometry" />
+    </mxCell>
+
+    <mxCell id="leg-app-swatch" value="App (Root)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1B3A6B;strokeColor=#1B3A6B;fontSize=10;fontColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="1392" y="96" width="90" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="leg-app-l" value="State management root&lt;br/&gt;&lt;font style=&quot;font-size:9px;color:#555555;&quot;&gt;状態管理の起点&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="1492" y="96" width="120" height="24" as="geometry" />
+    </mxCell>
+
+    <mxCell id="leg-tmpl-swatch" value="Template" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;fontSize=10;fontColor=#1B3A6B;" vertex="1" parent="1">
+      <mxGeometry x="1392" y="128" width="90" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="leg-tmpl-l" value="Page-level layout&lt;br/&gt;&lt;font style=&quot;font-size:9px;color:#555555;&quot;&gt;ページ構造テンプレート&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="1492" y="128" width="120" height="24" as="geometry" />
+    </mxCell>
+
+    <mxCell id="leg-org-swatch" value="Organism" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#64748B;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="1392" y="160" width="90" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="leg-org-l" value="Complex UI section&lt;br/&gt;&lt;font style=&quot;font-size:9px;color:#555555;&quot;&gt;複合UIセクション&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="1492" y="160" width="120" height="24" as="geometry" />
+    </mxCell>
+
+    <mxCell id="leg-mol-swatch" value="Molecule" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#94A3B8;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="1392" y="192" width="90" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="leg-mol-l" value="Composite component&lt;br/&gt;&lt;font style=&quot;font-size:9px;color:#555555;&quot;&gt;複合コンポーネント&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="1492" y="192" width="120" height="24" as="geometry" />
+    </mxCell>
+
+    <mxCell id="leg-atm-swatch" value="Atom" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#CBD5E0;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="1392" y="224" width="90" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="leg-atm-l" value="Atomic unit component&lt;br/&gt;&lt;font style=&quot;font-size:9px;color:#555555;&quot;&gt;最小UIパーツ&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="1492" y="224" width="120" height="24" as="geometry" />
+    </mxCell>
+
+    <mxCell id="leg-ext-swatch" value="External" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#CCFBF1;strokeColor=#0F766E;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="1392" y="256" width="90" height="40" as="geometry" />
+    </mxCell>
+    <mxCell id="leg-ext-l" value="Data source / storage&lt;br/&gt;&lt;font style=&quot;font-size:9px;color:#555555;&quot;&gt;データソース・ストレージ&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="1492" y="260" width="120" height="24" as="geometry" />
+    </mxCell>
+
+    <!-- ===== LAYER LABELS ===== -->
+    <mxCell id="lyr-app"  value="Application&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;アプリケーション&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;fontSize=10;fontStyle=2;fontColor=#334155;" vertex="1" parent="1">
+      <mxGeometry x="20" y="75" width="90" height="30" as="geometry" />
+    </mxCell>
+    <mxCell id="lyr-tmpl" value="Templates&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;テンプレート層&lt;/font&gt;"   style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;fontSize=10;fontStyle=2;fontColor=#334155;" vertex="1" parent="1">
+      <mxGeometry x="20" y="160" width="90" height="30" as="geometry" />
+    </mxCell>
+    <mxCell id="lyr-org"  value="Organisms&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;オーガニズム層&lt;/font&gt;"   style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;fontSize=10;fontStyle=2;fontColor=#334155;" vertex="1" parent="1">
+      <mxGeometry x="20" y="460" width="90" height="30" as="geometry" />
+    </mxCell>
+    <mxCell id="lyr-mol"  value="Molecules&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;モレキュール層&lt;/font&gt;"   style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;fontSize=10;fontStyle=2;fontColor=#334155;" vertex="1" parent="1">
+      <mxGeometry x="20" y="640" width="90" height="30" as="geometry" />
+    </mxCell>
+    <mxCell id="lyr-atm"  value="Atoms&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;アトム層&lt;/font&gt;"       style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;fontSize=10;fontStyle=2;fontColor=#334155;" vertex="1" parent="1">
+      <mxGeometry x="20" y="750" width="90" height="30" as="geometry" />
+    </mxCell>
+
+    <!-- ===== APP ROOT ===== -->
+    <mxCell id="app" value="&lt;b&gt;App&lt;/b&gt;&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;State management root （状態管理ルート）&lt;br/&gt;usePersistentState / useGoogleSheets&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1B3A6B;strokeColor=#1B3A6B;fontSize=10;fontColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="560" y="60" width="480" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- ===== APPSHELL (Template) ===== -->
+    <mxCell id="appshell" value="&lt;b&gt;AppShell&lt;/b&gt;&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;Root layout / prop distributor&lt;br/&gt;（全体レイアウト・Props中継）&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2563EB;strokeColor=#1B3A6B;fontSize=10;fontColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="560" y="140" width="480" height="45" as="geometry" />
+    </mxCell>
+
+    <!-- EDGE: App → AppShell -->
+    <mxCell id="e-app-shell" value="props" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#334155;endArrow=open;endFill=0;fontSize=9;" edge="1" source="app" target="appshell" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- ===== TEMPLATES ===== -->
+    <mxCell id="header"  value="&lt;b&gt;Header&lt;/b&gt;&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;User icon / Reset button&lt;br/&gt;（ユーザーアイコン・初期化）&lt;/font&gt;"         style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;fontSize=10;fontColor=#1B3A6B;" vertex="1" parent="1">
+      <mxGeometry x="120"  y="230" width="160" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="hero"    value="&lt;b&gt;Hero&lt;/b&gt;&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;Statistics display&lt;br/&gt;（統計サマリ表示）&lt;/font&gt;"                    style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;fontSize=10;fontColor=#1B3A6B;" vertex="1" parent="1">
+      <mxGeometry x="300"  y="230" width="160" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="mboard"  value="&lt;b&gt;MissionBoard&lt;/b&gt;&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;Course tabs / Mission grid&lt;br/&gt;（コースタブ・ミッション一覧）&lt;/font&gt;"         style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;fontSize=10;fontColor=#1B3A6B;" vertex="1" parent="1">
+      <mxGeometry x="480"  y="230" width="180" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="showcase" value="&lt;b&gt;ShowcasePanel&lt;/b&gt;&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;Work showcase display&lt;br/&gt;（作品紹介パネル）&lt;/font&gt;"             style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;fontSize=10;fontColor=#1B3A6B;" vertex="1" parent="1">
+      <mxGeometry x="680"  y="230" width="180" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="reqform" value="&lt;b&gt;RequestForm&lt;/b&gt;&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;Mission request submission&lt;br/&gt;（ミッション依頼フォーム）&lt;/font&gt;"         style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;fontSize=10;fontColor=#1B3A6B;" vertex="1" parent="1">
+      <mxGeometry x="880"  y="230" width="160" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="admin"   value="&lt;b&gt;AdminPanel&lt;/b&gt;&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;Mission CRUD / Request review&lt;br/&gt;（管理者パネル・依頼審査）&lt;/font&gt;"       style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;fontSize=10;fontColor=#1B3A6B;" vertex="1" parent="1">
+      <mxGeometry x="1060" y="230" width="180" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- EDGES: AppShell → Templates -->
+    <mxCell id="e-shell-header"   value="" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#334155;endArrow=open;endFill=0;" edge="1" source="appshell" target="header"   parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e-shell-hero"     value="" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#334155;endArrow=open;endFill=0;" edge="1" source="appshell" target="hero"     parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e-shell-mboard"   value="" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#334155;endArrow=open;endFill=0;" edge="1" source="appshell" target="mboard"   parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e-shell-showcase" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#334155;endArrow=open;endFill=0;" edge="1" source="appshell" target="showcase" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e-shell-reqform"  value="" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#334155;endArrow=open;endFill=0;" edge="1" source="appshell" target="reqform"  parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e-shell-admin"    value="" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#334155;endArrow=open;endFill=0;" edge="1" source="appshell" target="admin"    parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+    <!-- ===== ORGANISMS ===== -->
+    <mxCell id="sdrawer" value="&lt;b&gt;SettingsDrawer&lt;/b&gt;&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;Role / Theme / Reset controls&lt;br/&gt;（設定ドロワー）&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#64748B;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="120" y="390" width="160" height="60" as="geometry" />
+    </mxCell>
+    <mxCell id="mcard"   value="&lt;b&gt;MissionCard&lt;/b&gt;&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;Individual mission display&lt;br/&gt;（ミッションカード ×N枚）&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#64748B;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="400" y="390" width="160" height="60" as="geometry" />
+    </mxCell>
+    <mxCell id="sgrid"   value="&lt;b&gt;ShowcaseGrid&lt;/b&gt;&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;Grid layout for showcase cards&lt;br/&gt;（作品グリッドレイアウト）&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#64748B;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="620" y="390" width="160" height="60" as="geometry" />
+    </mxCell>
+    <mxCell id="ticker"  value="&lt;b&gt;Ticker&lt;/b&gt;&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;Fixed bottom clear notification&lt;br/&gt;（クリア通知テロップ・下部固定）&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#64748B;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="840" y="390" width="160" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- EDGES: Templates → Organisms -->
+    <mxCell id="e-header-sdrawer" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#334155;endArrow=open;endFill=0;" edge="1" source="header" target="sdrawer" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e-mboard-mcard"   value="" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#334155;endArrow=open;endFill=0;" edge="1" source="mboard"  target="mcard"   parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e-showcase-sgrid" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#334155;endArrow=open;endFill=0;" edge="1" source="showcase" target="sgrid"   parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e-shell-ticker"   value="" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#334155;endArrow=open;endFill=0;dashed=1;" edge="1" source="appshell" target="ticker" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="800" y="208" />
+          <mxPoint x="920" y="208" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+
+    <!-- ===== MOLECULE ===== -->
+    <mxCell id="fpill" value="&lt;b&gt;FilterPill&lt;/b&gt;&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;Selectable filter chip&lt;br/&gt;（選択式フィルタチップ）&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#94A3B8;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="400" y="570" width="140" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="e-mcard-fpill" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#334155;endArrow=open;endFill=0;" edge="1" source="mcard" target="fpill" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+    <!-- ===== ATOMS ===== -->
+    <mxCell id="atom-tag"  value="&lt;b&gt;Tag&lt;/b&gt;&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;Icon+label badge&lt;br/&gt;（アイコン付きバッジ）&lt;/font&gt;"    style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#CBD5E0;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="270" y="710" width="120" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="atom-pill" value="&lt;b&gt;Pill&lt;/b&gt;&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;Rounded label chip&lt;br/&gt;（丸型ラベル）&lt;/font&gt;"  style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#CBD5E0;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="420" y="710" width="120" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="atom-btn"  value="&lt;b&gt;Button&lt;/b&gt;&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;Styled action button&lt;br/&gt;（操作ボタン）&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#CBD5E0;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="570" y="710" width="120" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- EDGES: Organisms/Molecules → Atoms -->
+    <mxCell id="e-mcard-tag"  value="" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#64748B;endArrow=open;endFill=0;" edge="1" source="mcard"  target="atom-tag"  parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e-mcard-pill" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#64748B;endArrow=open;endFill=0;" edge="1" source="mcard"  target="atom-pill" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e-mcard-btn"  value="" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#64748B;endArrow=open;endFill=0;" edge="1" source="mcard"  target="atom-btn"  parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e-fpill-pill" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#64748B;endArrow=open;endFill=0;" edge="1" source="fpill"  target="atom-pill" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+    <!-- ===== HOOKS / UTILITIES (right panel) ===== -->
+    <mxCell id="hooks-box" value="Hooks &amp; Utilities（カスタムフック・ユーティリティ）" style="swimlane;startSize=25;fillColor=#F8FAFC;strokeColor=#64748B;fontStyle=1;fontSize=11;fontColor=#334155;" vertex="1" parent="1">
+      <mxGeometry x="1280" y="320" width="280" height="230" as="geometry" />
+    </mxCell>
+    <mxCell id="h-persist"    value="usePersistentState&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;localStorage R/W wrapper（永続化フック）&lt;/font&gt;"         style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#94A3B8;fontSize=10;" vertex="1" parent="hooks-box">
+      <mxGeometry x="20" y="35"  width="240" height="40" as="geometry" />
+    </mxCell>
+    <mxCell id="h-sheets"     value="useGoogleSheets&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;Google Sheets API fetch（外部データ取得）&lt;/font&gt;"             style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#94A3B8;fontSize=10;" vertex="1" parent="hooks-box">
+      <mxGeometry x="20" y="85"  width="240" height="40" as="geometry" />
+    </mxCell>
+    <mxCell id="h-interval"   value="useInterval&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;Periodic callback（自動スライド用タイマー）&lt;/font&gt;"        style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#94A3B8;fontSize=10;" vertex="1" parent="hooks-box">
+      <mxGeometry x="20" y="135" width="240" height="40" as="geometry" />
+    </mxCell>
+    <mxCell id="h-fullscreen" value="useFullscreen&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;Browser Fullscreen API（全画面制御）&lt;/font&gt;"               style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#94A3B8;fontSize=10;" vertex="1" parent="hooks-box">
+      <mxGeometry x="20" y="185" width="240" height="40" as="geometry" />
+    </mxCell>
+
+    <mxCell id="e-app-hooks" value="uses（利用）" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#64748B;endArrow=open;endFill=0;dashed=1;fontSize=9;" edge="1" source="app" target="hooks-box" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- ===== EXTERNAL DATA ===== -->
+    <mxCell id="ext-ls" value="&lt;b&gt;localStorage&lt;/b&gt;&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;missions / requests / showcase&lt;br/&gt;adminPin / theme（ブラウザ永続ストレージ）&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#CCFBF1;strokeColor=#0F766E;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="1290" y="610" width="140" height="70" as="geometry" />
+    </mxCell>
+    <mxCell id="ext-sheets" value="&lt;b&gt;Google Sheets&lt;/b&gt;&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;Mission master data（ミッションマスタ）&lt;br/&gt;外部データソース&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#CCFBF1;strokeColor=#0F766E;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="1450" y="610" width="140" height="70" as="geometry" />
+    </mxCell>
+
+    <mxCell id="e-persist-ls"   value="" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#0F766E;endArrow=open;endFill=0;dashed=1;" edge="1" source="h-persist" target="ext-ls"     parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e-sheets-ext"   value="" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#0F766E;endArrow=open;endFill=0;dashed=1;" edge="1" source="h-sheets"  target="ext-sheets" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+    <!-- ===== ROUTER NOTE ===== -->
+    <mxCell id="router-note" value="&lt;b&gt;React Router v7&lt;/b&gt; （ルーティング）&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;/  → App（メインボード）&lt;br/&gt;/about → AboutPage（紹介ページ）&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#94A3B8;fontSize=10;dashed=1;" vertex="1" parent="1">
+      <mxGeometry x="1280" y="60" width="180" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- ===== SEPARATOR LINES ===== -->
+    <mxCell id="sep1" value="" style="endArrow=none;html=1;strokeColor=#CBD5E0;dashed=1;" edge="1" parent="1">
+      <mxGeometry x="120" y="130" as="geometry"><mxPoint x="120" y="130" as="sourcePoint" /><mxPoint x="1260" y="130" as="targetPoint" /></mxGeometry>
+    </mxCell>
+    <mxCell id="sep2" value="" style="endArrow=none;html=1;strokeColor=#CBD5E0;dashed=1;" edge="1" parent="1">
+      <mxGeometry x="120" y="370" as="geometry"><mxPoint x="120" y="370" as="sourcePoint" /><mxPoint x="1260" y="370" as="targetPoint" /></mxGeometry>
+    </mxCell>
+    <mxCell id="sep3" value="" style="endArrow=none;html=1;strokeColor=#CBD5E0;dashed=1;" edge="1" parent="1">
+      <mxGeometry x="120" y="550" as="geometry"><mxPoint x="120" y="550" as="sourcePoint" /><mxPoint x="1260" y="550" as="targetPoint" /></mxGeometry>
+    </mxCell>
+    <mxCell id="sep4" value="" style="endArrow=none;html=1;strokeColor=#CBD5E0;dashed=1;" edge="1" parent="1">
+      <mxGeometry x="120" y="690" as="geometry"><mxPoint x="120" y="690" as="sourcePoint" /><mxPoint x="1260" y="690" as="targetPoint" /></mxGeometry>
+    </mxCell>
+
+  </root>
+</mxGraphModel>
