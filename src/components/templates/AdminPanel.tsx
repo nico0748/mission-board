@@ -16,7 +16,6 @@ type Props = {
   requests: MissionRequest[];
   approveRequest: (r: MissionRequest) => void;
   rejectRequest: (id: string) => void;
-  handlePinChange: (e: React.FormEvent<HTMLFormElement>) => void;
 };
 
 export const AdminPanel: React.FC<Props> = React.memo(({
@@ -31,7 +30,6 @@ export const AdminPanel: React.FC<Props> = React.memo(({
   requests,
   approveRequest,
   rejectRequest,
-  handlePinChange
 }) => {
   if (!visible) return null;
   return (
@@ -209,23 +207,6 @@ export const AdminPanel: React.FC<Props> = React.memo(({
         </div>
       </div>
 
-      <div className="card">
-        <div className="card-head">
-          <h3>Admin PIN 設定</h3>
-          <p className="muted">adminモード切替時に必要なPINを変更します。</p>
-        </div>
-        <form className="form" onSubmit={handlePinChange}>
-          <label>
-            現在のPIN
-            <input name="currentPin" type="password" required />
-          </label>
-          <label>
-            新しいPIN（4桁以上）
-            <input name="nextPin" type="password" required minLength={4} />
-          </label>
-          <Button type="submit">更新する</Button>
-        </form>
-      </div>
     </section>
   );
 });
