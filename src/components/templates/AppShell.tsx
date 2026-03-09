@@ -105,7 +105,9 @@ export const AppShell: React.FC<Props> = (props) => {
         <ShowcasePanel items={showcase} />
       </main>
 
-      <RequestForm courses={courses} missionTypes={['機能系', '思考系', '体験系', '技術縛り系', '社会テーマ系', 'その他']} onSubmit={handleRequestSubmit} />
+      {import.meta.env.VITE_ENABLE_REQUEST_FORM === 'true' && (
+        <RequestForm courses={courses} missionTypes={['機能系', '思考系', '体験系', '技術縛り系', '社会テーマ系', 'その他']} onSubmit={handleRequestSubmit} />
+      )}
       <AdminPanel
         visible={adminVisible}
         courses={courses}
