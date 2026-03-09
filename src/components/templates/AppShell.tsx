@@ -65,8 +65,9 @@ export const AppShell: React.FC<Props> = (props) => {
   } = props;
 
   return (
-    <div className="page">
+    <>
       <Header />
+      <div className="page">
       <Hero stats={stats} />
       <main className="layout layout-tight">
         <MissionBoard
@@ -101,6 +102,7 @@ export const AppShell: React.FC<Props> = (props) => {
       />
 
       <Ticker items={clearTickerItems} duration={tickerDuration} />
-    </div>
+      </div>
+    </>
   );
 };

@@ -3,7 +3,9 @@
   justify-content: space-between;
   align-items: center;
   padding: 12px clamp(16px, 4vw, 48px);
-  background: var(--bg, #f0e6d1);
+  background: color-mix(in srgb, var(--bg, #f0e6d1) 70%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   position: sticky;
   top: 0;
   z-index: 10;
