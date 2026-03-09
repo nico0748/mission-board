@@ -1,0 +1,230 @@
+<mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+
+    <!-- Title -->
+    <mxCell id="title" value="Fig. 2  Data Structure and State Management of Mission Board Web Application&lt;br/&gt;&lt;font style=&quot;font-size:11px;font-weight:normal;&quot;&gt;ミッションボード Web アプリケーション データ構成・状態管理図&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#1a1a2e;" vertex="1" parent="1">
+      <mxGeometry x="150" y="20" width="1300" height="30" as="geometry" />
+    </mxCell>
+
+    <!-- ===================================================
+         SECTION A: Interface definitions (UML class style)
+         =================================================== -->
+
+    <!-- Mission -->
+    <mxCell id="cls-mission-hdr" value="«interface»  Mission（ミッション・課題）" style="swimlane;startSize=30;fillColor=#1B3A6B;strokeColor=#1B3A6B;fontStyle=1;fontSize=11;fontColor=#ffffff;horizontal=1;" vertex="1" parent="1">
+      <mxGeometry x="120" y="80" width="300" height="310" as="geometry" />
+    </mxCell>
+    <mxCell id="cls-mission-body" value="+ id: string　&lt;font color=&quot;#555555&quot;&gt;（一意識別子）&lt;/font&gt;&lt;br/&gt;+ title: string　&lt;font color=&quot;#555555&quot;&gt;（タイトル）&lt;/font&gt;&lt;br/&gt;+ description: string　&lt;font color=&quot;#555555&quot;&gt;（説明文）&lt;/font&gt;&lt;br/&gt;+ course: Course　&lt;font color=&quot;#555555&quot;&gt;（対象コース）&lt;/font&gt;&lt;br/&gt;+ difficulty: Difficulty (1–7)　&lt;font color=&quot;#555555&quot;&gt;（難易度）&lt;/font&gt;&lt;br/&gt;+ missionType: MissionType　&lt;font color=&quot;#555555&quot;&gt;（種別）&lt;/font&gt;&lt;br/&gt;+ createdBy: 'teacher' | 'student'　&lt;font color=&quot;#555555&quot;&gt;（作成者区分）&lt;/font&gt;&lt;br/&gt;+ status: 'active' | 'inactive'　&lt;font color=&quot;#555555&quot;&gt;（公開状態）&lt;/font&gt;&lt;br/&gt;+ participants: number　&lt;font color=&quot;#555555&quot;&gt;（参加人数）&lt;/font&gt;&lt;br/&gt;+ clears: ClearEntry[]　&lt;font color=&quot;#555555&quot;&gt;（クリア記録リスト）&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=#F8FAFC;align=left;verticalAlign=top;spacingLeft=10;whiteSpace=wrap;fontSize=10;fontColor=#1a1a2e;" vertex="1" parent="cls-mission-hdr">
+      <mxGeometry x="0" y="30" width="300" height="280" as="geometry" />
+    </mxCell>
+
+    <!-- ClearEntry -->
+    <mxCell id="cls-clear-hdr" value="«interface»  ClearEntry（クリア記録）" style="swimlane;startSize=30;fillColor=#2563EB;strokeColor=#1B3A6B;fontStyle=1;fontSize=11;fontColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="120" y="430" width="300" height="130" as="geometry" />
+    </mxCell>
+    <mxCell id="cls-clear-body" value="+ id: string　&lt;font color=&quot;#555555&quot;&gt;（一意識別子）&lt;/font&gt;&lt;br/&gt;+ studentName: string　&lt;font color=&quot;#555555&quot;&gt;（生徒名）&lt;/font&gt;&lt;br/&gt;+ clearedAt: string (ISO 8601)　&lt;font color=&quot;#555555&quot;&gt;（クリア日時）&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=#F8FAFC;align=left;verticalAlign=top;spacingLeft=10;whiteSpace=wrap;fontSize=10;" vertex="1" parent="cls-clear-hdr">
+      <mxGeometry x="0" y="30" width="300" height="100" as="geometry" />
+    </mxCell>
+
+    <!-- MissionRequest -->
+    <mxCell id="cls-request-hdr" value="«interface»  MissionRequest（ミッション依頼）" style="swimlane;startSize=30;fillColor=#1B3A6B;strokeColor=#1B3A6B;fontStyle=1;fontSize=11;fontColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="520" y="80" width="300" height="230" as="geometry" />
+    </mxCell>
+    <mxCell id="cls-request-body" value="+ id: string　&lt;font color=&quot;#555555&quot;&gt;（一意識別子）&lt;/font&gt;&lt;br/&gt;+ requesterName: string　&lt;font color=&quot;#555555&quot;&gt;（依頼者名）&lt;/font&gt;&lt;br/&gt;+ title: string　&lt;font color=&quot;#555555&quot;&gt;（依頼タイトル）&lt;/font&gt;&lt;br/&gt;+ detail: string　&lt;font color=&quot;#555555&quot;&gt;（詳細）&lt;/font&gt;&lt;br/&gt;+ course?: Course　&lt;font color=&quot;#555555&quot;&gt;（任意：コース）&lt;/font&gt;&lt;br/&gt;+ missionType?: MissionType　&lt;font color=&quot;#555555&quot;&gt;（任意：種別）&lt;/font&gt;&lt;br/&gt;+ status: 'pending' | 'approved' | 'rejected'　&lt;font color=&quot;#555555&quot;&gt;（審査状態）&lt;/font&gt;&lt;br/&gt;+ createdAt: string (ISO 8601)　&lt;font color=&quot;#555555&quot;&gt;（依頼日時）&lt;/font&gt;&lt;br/&gt;+ approvedAsMissionId?: string　&lt;font color=&quot;#555555&quot;&gt;（承認ミッションID）&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=#F8FAFC;align=left;verticalAlign=top;spacingLeft=10;whiteSpace=wrap;fontSize=10;" vertex="1" parent="cls-request-hdr">
+      <mxGeometry x="0" y="30" width="300" height="200" as="geometry" />
+    </mxCell>
+
+    <!-- ShowcaseEntry -->
+    <mxCell id="cls-showcase-hdr" value="«interface»  ShowcaseEntry（作品紹介エントリ）" style="swimlane;startSize=30;fillColor=#1B3A6B;strokeColor=#1B3A6B;fontStyle=1;fontSize=11;fontColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="920" y="80" width="300" height="200" as="geometry" />
+    </mxCell>
+    <mxCell id="cls-showcase-body" value="+ id: string　&lt;font color=&quot;#555555&quot;&gt;（一意識別子）&lt;/font&gt;&lt;br/&gt;+ workName: string　&lt;font color=&quot;#555555&quot;&gt;（作品名）&lt;/font&gt;&lt;br/&gt;+ creator: string　&lt;font color=&quot;#555555&quot;&gt;（制作者名）&lt;/font&gt;&lt;br/&gt;+ course: Course　&lt;font color=&quot;#555555&quot;&gt;（対象コース）&lt;/font&gt;&lt;br/&gt;+ comment: string　&lt;font color=&quot;#555555&quot;&gt;（コメント）&lt;/font&gt;&lt;br/&gt;+ award?: 'アイデア賞' | '技術賞'&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; | 'デザイン賞' | 'チャレンジ賞'　&lt;font color=&quot;#555555&quot;&gt;（任意：受賞）&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=#F8FAFC;align=left;verticalAlign=top;spacingLeft=10;whiteSpace=wrap;fontSize=10;" vertex="1" parent="cls-showcase-hdr">
+      <mxGeometry x="0" y="30" width="300" height="170" as="geometry" />
+    </mxCell>
+
+    <!-- ===================================================
+         SECTION B: Union / Enum types
+         =================================================== -->
+
+    <!-- Course -->
+    <mxCell id="type-course-hdr" value="«type»  Course（コース種別 / 6種）" style="swimlane;startSize=25;fillColor=#DBEAFE;strokeColor=#2563EB;fontStyle=1;fontSize=10;fontColor=#1B3A6B;" vertex="1" parent="1">
+      <mxGeometry x="520" y="380" width="220" height="160" as="geometry" />
+    </mxCell>
+    <mxCell id="type-course-body" value="Scratch&lt;br/&gt;Unity&lt;br/&gt;LEGO SPIKE Basic&lt;br/&gt;LEGO SPIKE Prime&lt;br/&gt;3Dペン&lt;br/&gt;Blender + 3D造形" style="text;html=1;strokeColor=none;fillColor=#F8FAFC;align=left;verticalAlign=top;spacingLeft=10;whiteSpace=wrap;fontSize=10;" vertex="1" parent="type-course-hdr">
+      <mxGeometry x="0" y="25" width="220" height="135" as="geometry" />
+    </mxCell>
+
+    <!-- MissionType -->
+    <mxCell id="type-mtype-hdr" value="«type»  MissionType（ミッション種別 / 6種）" style="swimlane;startSize=25;fillColor=#DBEAFE;strokeColor=#2563EB;fontStyle=1;fontSize=10;fontColor=#1B3A6B;" vertex="1" parent="1">
+      <mxGeometry x="760" y="380" width="200" height="160" as="geometry" />
+    </mxCell>
+    <mxCell id="type-mtype-body" value="機能系&lt;br/&gt;思考系&lt;br/&gt;体験系&lt;br/&gt;技術縛り系&lt;br/&gt;社会テーマ系&lt;br/&gt;その他" style="text;html=1;strokeColor=none;fillColor=#F8FAFC;align=left;verticalAlign=top;spacingLeft=10;whiteSpace=wrap;fontSize=10;" vertex="1" parent="type-mtype-hdr">
+      <mxGeometry x="0" y="25" width="200" height="135" as="geometry" />
+    </mxCell>
+
+    <!-- Difficulty -->
+    <mxCell id="type-diff-hdr" value="«type»  Difficulty（難易度 / 1〜7）" style="swimlane;startSize=25;fillColor=#DBEAFE;strokeColor=#2563EB;fontStyle=1;fontSize=10;fontColor=#1B3A6B;" vertex="1" parent="1">
+      <mxGeometry x="920" y="320" width="160" height="60" as="geometry" />
+    </mxCell>
+    <mxCell id="type-diff-body" value="1 | 2 | 3 | 4 | 5 | 6 | 7" style="text;html=1;strokeColor=none;fillColor=#F8FAFC;align=left;verticalAlign=top;spacingLeft=10;whiteSpace=wrap;fontSize=10;" vertex="1" parent="type-diff-hdr">
+      <mxGeometry x="0" y="25" width="160" height="35" as="geometry" />
+    </mxCell>
+
+    <!-- Role -->
+    <mxCell id="type-role-hdr" value="«type»  Role（ユーザーロール）" style="swimlane;startSize=25;fillColor=#DBEAFE;strokeColor=#2563EB;fontStyle=1;fontSize=10;fontColor=#1B3A6B;" vertex="1" parent="1">
+      <mxGeometry x="1100" y="320" width="160" height="60" as="geometry" />
+    </mxCell>
+    <mxCell id="type-role-body" value="'admin' | 'general'" style="text;html=1;strokeColor=none;fillColor=#F8FAFC;align=left;verticalAlign=top;spacingLeft=10;whiteSpace=wrap;fontSize=10;" vertex="1" parent="type-role-hdr">
+      <mxGeometry x="0" y="25" width="160" height="35" as="geometry" />
+    </mxCell>
+
+    <!-- ===================================================
+         RELATIONSHIPS (UML notation)
+         =================================================== -->
+
+    <!-- Mission ◇──1..* ClearEntry  (composition) -->
+    <mxCell id="rel-mission-clear" value="1..* （1対多・包含）" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#334155;endArrow=open;endFill=0;startArrow=ERmany;startFill=0;fontSize=10;" edge="1" source="cls-clear-hdr" target="cls-mission-hdr" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="270" y="430" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+
+    <!-- MissionRequest ··→ Mission  (dependency via approvedAsMissionId) -->
+    <mxCell id="rel-req-mission" value="&lt;i&gt;approvedAsMissionId&lt;/i&gt;" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#334155;endArrow=open;endFill=0;dashed=1;fontSize=9;" edge="1" source="cls-request-hdr" target="cls-mission-hdr" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="520" y="195" />
+          <mxPoint x="420" y="195" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+
+    <!-- Mission → Course -->
+    <mxCell id="rel-mission-course" value="course" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#2563EB;endArrow=open;endFill=0;dashed=1;fontSize=9;" edge="1" source="cls-mission-hdr" target="type-course-hdr" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="270" y="390" /><mxPoint x="270" y="440" /><mxPoint x="520" y="440" /><mxPoint x="520" y="420" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+
+    <!-- Mission → MissionType -->
+    <mxCell id="rel-mission-mtype" value="missionType" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#2563EB;endArrow=open;endFill=0;dashed=1;fontSize=9;" edge="1" source="cls-mission-hdr" target="type-mtype-hdr" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="420" y="390" /><mxPoint x="420" y="460" /><mxPoint x="760" y="460" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+
+    <!-- Mission → Difficulty -->
+    <mxCell id="rel-mission-diff" value="difficulty" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#2563EB;endArrow=open;endFill=0;dashed=1;fontSize=9;" edge="1" source="cls-mission-hdr" target="type-diff-hdr" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="420" y="200" /><mxPoint x="920" y="200" /><mxPoint x="920" y="320" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+
+    <!-- ShowcaseEntry → Course -->
+    <mxCell id="rel-showcase-course" value="course" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#2563EB;endArrow=open;endFill=0;dashed=1;fontSize=9;" edge="1" source="cls-showcase-hdr" target="type-course-hdr" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="920" y="420" /><mxPoint x="740" y="420" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+
+    <!-- ===================================================
+         SECTION C: App component state
+         =================================================== -->
+
+    <mxCell id="state-box" value="App Component State（コンポーネント状態管理）" style="swimlane;startSize=30;fillColor=#1B3A6B;strokeColor=#1B3A6B;fontStyle=1;fontSize=12;fontColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="120" y="620" width="1160" height="230" as="geometry" />
+    </mxCell>
+
+    <!-- Persistent state items -->
+    <mxCell id="st-missions"  value="&lt;b&gt;missions&lt;/b&gt;: Mission[]&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;usePersistentState（永続化）&lt;br/&gt;Google Sheetsと同期&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;fontSize=10;align=left;spacingLeft=6;fontColor=#1B3A6B;" vertex="1" parent="state-box">
+      <mxGeometry x="20"  y="45" width="200" height="60" as="geometry" />
+    </mxCell>
+    <mxCell id="st-requests"  value="&lt;b&gt;requests&lt;/b&gt;: MissionRequest[]&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;usePersistentState（永続化）&lt;br/&gt;ミッション依頼リスト&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;fontSize=10;align=left;spacingLeft=6;fontColor=#1B3A6B;" vertex="1" parent="state-box">
+      <mxGeometry x="235" y="45" width="210" height="60" as="geometry" />
+    </mxCell>
+    <mxCell id="st-showcase"  value="&lt;b&gt;showcase&lt;/b&gt;: ShowcaseEntry[]&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;usePersistentState（永続化）&lt;br/&gt;作品紹介エントリ一覧&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;fontSize=10;align=left;spacingLeft=6;fontColor=#1B3A6B;" vertex="1" parent="state-box">
+      <mxGeometry x="460" y="45" width="200" height="60" as="geometry" />
+    </mxCell>
+    <mxCell id="st-theme"     value="&lt;b&gt;theme&lt;/b&gt;: ThemeKey&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;usePersistentState（永続化）&lt;br/&gt;テーマ選択（warm/cool/dark）&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;fontSize=10;align=left;spacingLeft=6;fontColor=#1B3A6B;" vertex="1" parent="state-box">
+      <mxGeometry x="675" y="45" width="185" height="60" as="geometry" />
+    </mxCell>
+    <mxCell id="st-pin"       value="&lt;b&gt;adminPin&lt;/b&gt;: string&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;usePersistentState（永続化）&lt;br/&gt;管理者PINコード&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;fontSize=10;align=left;spacingLeft=6;fontColor=#1B3A6B;" vertex="1" parent="state-box">
+      <mxGeometry x="875" y="45" width="195" height="60" as="geometry" />
+    </mxCell>
+    <mxCell id="st-role"      value="&lt;b&gt;role&lt;/b&gt;: Role&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;useState&lt;br/&gt;（セッション限定）&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#64748B;fontSize=10;align=left;spacingLeft=6;" vertex="1" parent="state-box">
+      <mxGeometry x="1085" y="45" width="60" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- Derived state (useMemo) -->
+    <mxCell id="derived-label" value="Derived（派生状態 / useMemo）" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=9;fontStyle=2;fontColor=#93C5FD;" vertex="1" parent="state-box">
+      <mxGeometry x="20" y="128" width="160" height="18" as="geometry" />
+    </mxCell>
+    <mxCell id="st-stats"         value="&lt;b&gt;stats&lt;/b&gt;: {total, cleared, active}&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;missions[] から算出（統計サマリ）&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#93C5FD;fontSize=10;align=left;spacingLeft=6;" vertex="1" parent="state-box">
+      <mxGeometry x="20"  y="150" width="215" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="st-coursemissions" value="&lt;b&gt;courseMissions&lt;/b&gt;: Mission[][]&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;コース別グループ化（×6コース）&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#93C5FD;fontSize=10;align=left;spacingLeft=6;" vertex="1" parent="state-box">
+      <mxGeometry x="250" y="150" width="230" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="st-ticker"         value="&lt;b&gt;clearTickerItems&lt;/b&gt;: TickerItem[]&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;最新16件・日時順（テロップ用）&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#93C5FD;fontSize=10;align=left;spacingLeft=6;" vertex="1" parent="state-box">
+      <mxGeometry x="500" y="150" width="230" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- ===================================================
+         SECTION D: External data sources & flow
+         =================================================== -->
+
+    <mxCell id="ext-sheets2" value="&lt;b&gt;Google Sheets&lt;/b&gt;&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;ミッションマスタ（外部）&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#CCFBF1;strokeColor=#0F766E;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="1380" y="80"  width="160" height="75" as="geometry" />
+    </mxCell>
+    <mxCell id="ext-ls2"     value="&lt;b&gt;localStorage&lt;/b&gt;&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;ブラウザ永続ストレージ&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#CCFBF1;strokeColor=#0F766E;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="1380" y="200" width="160" height="75" as="geometry" />
+    </mxCell>
+    <mxCell id="ext-seed"    value="&lt;b&gt;seed.ts&lt;/b&gt;&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;初期データ / フォールバック&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#F1F5F9;strokeColor=#64748B;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="1380" y="320" width="160" height="75" as="geometry" />
+    </mxCell>
+
+    <!-- Flow arrows to state-box -->
+    <mxCell id="e-sheets-state" value="fetch（取得・クリア記録をマージ）" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#0F766E;endArrow=block;endFill=1;fontSize=9;" edge="1" source="ext-sheets2" target="state-box" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="1380" y="115" /><mxPoint x="1310" y="115" /><mxPoint x="1310" y="650" /><mxPoint x="1280" y="650" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="e-ls-state" value="R/W sync（読み書き同期）" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#0F766E;endArrow=block;endFill=1;startArrow=block;startFill=1;fontSize=9;" edge="1" source="ext-ls2" target="state-box" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="1380" y="235" /><mxPoint x="1320" y="235" /><mxPoint x="1320" y="700" /><mxPoint x="1280" y="700" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="e-seed-state" value="initial data（初期データ投入）" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#64748B;endArrow=block;endFill=1;dashed=1;fontSize=9;" edge="1" source="ext-seed" target="state-box" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="1380" y="355" /><mxPoint x="1330" y="355" /><mxPoint x="1330" y="750" /><mxPoint x="1280" y="750" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+
+    <!-- State → type reference (dashed) -->
+    <mxCell id="e-state-mission"  value="" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#64748B;endArrow=open;endFill=0;dashed=1;" edge="1" source="st-missions" target="cls-mission-hdr"  parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e-state-request"  value="" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#64748B;endArrow=open;endFill=0;dashed=1;" edge="1" source="st-requests" target="cls-request-hdr" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e-state-showcase" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#64748B;endArrow=open;endFill=0;dashed=1;" edge="1" source="st-showcase" target="cls-showcase-hdr" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+    <!-- DataVersion note -->
+    <mxCell id="dataversion-note" value="&lt;b&gt;Data Versioning（データバージョン管理）&lt;/b&gt;&lt;br/&gt;&lt;font style=&quot;font-size:9px;&quot;&gt;key: &lt;i&gt;mission-board:dataVersion&lt;/i&gt;&lt;br/&gt;不一致時 → seed.ts から再初期化&lt;br/&gt;（Sheets未取得時のみ）&lt;/font&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;fontSize=10;fillColor=#F8FAFC;strokeColor=#64748B;size=15;" vertex="1" parent="1">
+      <mxGeometry x="1380" y="430" width="190" height="90" as="geometry" />
+    </mxCell>
+
+  </root>
+</mxGraphModel>
