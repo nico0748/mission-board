@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
 import { useSettings } from '../contexts/SettingsContext';
+import { Header } from '../components/templates/Header';
 import type { ThemeKey } from '../contexts/SettingsContext';
 import { Pill } from '../components/atoms/Pill';
 import './SettingsPage.css';
@@ -10,6 +10,13 @@ const themeOptions: { key: ThemeKey; label: string; desc: string; swatch: string
   { key: 'dark',  label: 'ダーク', desc: 'コントラスト強め',    swatch: '#444' },
 ];
 
+/**
+ * Renders the application settings page, providing controls for user role, theme, display timing, admin PIN management, and data reset.
+ *
+ * The page shows role switching (General/Admin), theme selection, board/ticker interval sliders, an admin-only PIN change form, and a destructive data reset action that requires confirmation.
+ *
+ * @returns The settings page as a JSX element
+ */
 export function SettingsPage() {
   const {
     role, setRole, requestAdminMode,
@@ -45,13 +52,7 @@ export function SettingsPage() {
 
   return (
     <div className="settings-page">
-      <header className="settings-header">
-        <div className="settings-brand">
-          <span className="logo-dot" />
-          <strong>ミッションボード</strong>
-        </div>
-        <Link to="/" className="settings-back-link">← ボードに戻る</Link>
-      </header>
+      <Header />
 
       <main className="settings-main">
         <div className="settings-content">

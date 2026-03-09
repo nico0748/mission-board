@@ -1,4 +1,5 @@
-import { Link, NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
+import { Header } from '../components/templates/Header';
 import './AboutPage.css';
 
 const NAV_ITEMS = [
@@ -9,18 +10,15 @@ const NAV_ITEMS = [
   { to: 'future',      label: '追加予定の機能' },
 ];
 
+/**
+ * Render the About page with a header, documentation sidebar navigation, nested content outlet, and footer.
+ *
+ * @returns The About page element containing the header, a sidebar of documentation links, a main content area that renders nested routes via `<Outlet />`, and a footer showing the current year.
+ */
 export function AboutPage() {
   return (
     <div className="about-page">
-      <header className="about-header">
-        <div className="about-brand">
-          <span className="logo-dot" />
-          <strong>ミッションボード</strong>
-        </div>
-        <Link to="/" className="about-back-link">
-          ← ボードに戻る
-        </Link>
-      </header>
+      <Header />
 
       <div className="about-body">
         <aside className="about-sidebar">
