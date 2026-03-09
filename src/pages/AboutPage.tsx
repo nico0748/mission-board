@@ -1,4 +1,5 @@
-import { Link, NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
+import { Header } from '../components/templates/Header';
 import './AboutPage.css';
 
 const NAV_ITEMS = [
@@ -12,15 +13,7 @@ const NAV_ITEMS = [
 export function AboutPage() {
   return (
     <div className="about-page">
-      <header className="about-header">
-        <div className="about-brand">
-          <span className="logo-dot" />
-          <strong>ミッションボード</strong>
-        </div>
-        <Link to="/" className="about-back-link">
-          ← ボードに戻る
-        </Link>
-      </header>
+      <Header />
 
       <div className="about-body">
         <aside className="about-sidebar">

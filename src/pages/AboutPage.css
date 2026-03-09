@@ -7,40 +7,6 @@
   font-family: 'M PLUS Rounded 1c', 'Baloo 2', sans-serif;
 }
 
-/* ── Header ── */
-.about-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px clamp(16px, 4vw, 48px);
-  border-bottom: 1px solid var(--border, rgba(51, 51, 51, 0.12));
-  background: var(--panel, #f8f1e3);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-.about-brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 1.1rem;
-  font-family: 'Fredoka', 'Baloo 2', sans-serif;
-  font-weight: 700;
-  color: var(--text, #333);
-}
-
-.about-back-link {
-  font-size: 0.9rem;
-  color: var(--accent-2, #ff7f57);
-  text-decoration: none;
-  font-weight: 600;
-  transition: opacity 0.15s;
-}
-
-.about-back-link:hover {
-  opacity: 0.75;
-}
 
 /* ── Body (sidebar + main) ── */
 .about-body {
