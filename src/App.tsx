@@ -292,26 +292,7 @@ function App() {
     e.currentTarget.reset();
   }, [adminPin, setAdminPin]);
 
-  // DEBUG: Remove after diagnosing Sheets issue
-  const sheetsDebugInfo = {
-    hasApiKey: !!import.meta.env.VITE_GOOGLE_SHEETS_API_KEY,
-    hasSpreadsheetId: !!import.meta.env.VITE_GOOGLE_SHEETS_SPREADSHEET_ID,
-    loading: sheetLoading,
-    error: sheetError,
-    loaded: sheetMissions !== null,
-  };
-
   return (
-    <>
-      {(sheetError || !sheetsDebugInfo.hasApiKey || !sheetsDebugInfo.hasSpreadsheetId) && (
-        <div style={{
-          position: 'fixed', top: 0, left: 0, right: 0, zIndex: 9999,
-          background: '#b91c1c', color: '#fff', padding: '8px 16px',
-          fontSize: '12px', fontFamily: 'monospace'
-        }}>
-          [Sheets Debug] apiKey={String(sheetsDebugInfo.hasApiKey)} | spreadsheetId={String(sheetsDebugInfo.hasSpreadsheetId)} | error={sheetError ?? 'none'} | loaded={String(sheetsDebugInfo.loaded)}
-        </div>
-      )}
     <AppShell
       role={role}
       setRole={setRole}
@@ -348,7 +329,6 @@ function App() {
       tickerDuration={tickerDuration}
       setTickerDuration={setTickerDuration}
     />
-    </>
   );
 }
 
