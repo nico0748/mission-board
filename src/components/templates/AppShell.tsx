@@ -66,7 +66,7 @@ export const AppShell: React.FC<Props> = (props) => {
 
   return (
     <div className="page">
-      <Header role={role} />
+      <Header />
       <Hero stats={stats} />
       <main className="layout layout-tight">
         <MissionBoard

@@ -1,0 +1,100 @@
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px clamp(16px, 4vw, 48px);
+  border-bottom: 1px solid var(--border, rgba(51, 51, 51, 0.12));
+  background: var(--panel, #f8f1e3);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.brand {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: linear-gradient(140deg, var(--accent), var(--accent-2));
+  box-shadow: 0 0 12px var(--accent);
+  flex-shrink: 0;
+}
+
+.brand .mini {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.brand strong {
+  font-family: 'Fredoka', 'Baloo 2', sans-serif;
+  font-size: 1.05rem;
+}
+
+.top-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.nav-link {
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  color: var(--accent-2);
+  background: var(--border);
+}
+
+.nav-link.active {
+  color: var(--accent-2);
+  font-weight: 600;
+}
+
+.avatar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 50%;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+
+.avatar-btn:hover {
+  opacity: 0.75;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(51, 51, 51, 0.08);
+  border: 1px solid var(--border);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.avatar.lg {
+  width: 44px;
+  height: 44px;
+  font-size: 22px;
+}
