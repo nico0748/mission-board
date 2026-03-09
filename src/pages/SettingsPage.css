@@ -1,0 +1,259 @@
+.settings-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-gradient, #f0e6d1);
+  color: var(--text, #333);
+  font-family: 'M PLUS Rounded 1c', 'Baloo 2', sans-serif;
+}
+
+/* ── Header ── */
+.settings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px clamp(16px, 4vw, 48px);
+  border-bottom: 1px solid var(--border, rgba(51, 51, 51, 0.12));
+  background: var(--panel, #f8f1e3);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.settings-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1rem;
+  font-family: 'Fredoka', 'Baloo 2', sans-serif;
+  font-weight: 700;
+  color: var(--text, #333);
+}
+
+.settings-back-link {
+  font-size: 0.9rem;
+  color: var(--accent-2, #ff7f57);
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.15s;
+}
+
+.settings-back-link:hover {
+  opacity: 0.75;
+}
+
+/* ── Main content ── */
+.settings-main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: clamp(24px, 4vw, 48px) clamp(16px, 4vw, 48px);
+}
+
+.settings-content {
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Section card ── */
+.settings-section {
+  background: var(--panel, #f8f1e3);
+  border: 1px solid var(--border, rgba(51, 51, 51, 0.12));
+  border-radius: 14px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.settings-section-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted, #5b5b5b);
+  margin: 0;
+}
+
+/* ── Role ── */
+.settings-role-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.settings-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(51, 51, 51, 0.08);
+  border: 1px solid var(--border, rgba(51, 51, 51, 0.12));
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.settings-role-label {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.settings-role-desc {
+  font-size: 0.8rem;
+  color: var(--muted, #5b5b5b);
+  margin: 2px 0 0;
+}
+
+/* ── Slider row ── */
+.settings-slider-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.settings-slider-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.settings-slider-label span:first-child {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.settings-slider-label span:last-child {
+  font-size: 0.85rem;
+  color: var(--muted, #5b5b5b);
+}
+
+.settings-slider-row input[type='range'] {
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.settings-hint {
+  font-size: 0.78rem;
+  color: var(--muted, #5b5b5b);
+  margin: 0;
+}
+
+/* ── Theme ── */
+.settings-theme-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.settings-theme-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 8px;
+  border-radius: 10px;
+  border: 2px solid var(--border, rgba(51, 51, 51, 0.12));
+  background: var(--card, #fbf6ec);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  font-family: inherit;
+  color: var(--text, #333);
+}
+
+.settings-theme-btn:hover {
+  border-color: var(--accent, #ffb869);
+}
+
+.settings-theme-btn.active {
+  border-color: var(--accent, #ffb869);
+  background: var(--bg, #f0e6d1);
+  font-weight: 700;
+}
+
+.settings-theme-btn .theme-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.settings-theme-btn .theme-desc {
+  font-size: 0.72rem;
+  color: var(--muted, #5b5b5b);
+}
+
+/* ── PIN form ── */
+.settings-pin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.settings-pin-form label {
+  font-size: 0.88rem;
+  font-weight: 500;
+  gap: 4px;
+}
+
+.settings-pin-form input {
+  max-width: 240px;
+  font-family: monospace;
+  letter-spacing: 0.1em;
+}
+
+/* ── Danger zone ── */
+.settings-section.danger {
+  border-color: rgba(185, 28, 28, 0.25);
+}
+
+.settings-section.danger .settings-section-title {
+  color: #b91c1c;
+}
+
+.settings-danger-desc {
+  font-size: 0.85rem;
+  color: var(--muted, #5b5b5b);
+  margin: 0;
+}
+
+.settings-btn-danger {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(185, 28, 28, 0.4);
+  background: transparent;
+  color: #b91c1c;
+  font-size: 0.88rem;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+  align-self: flex-start;
+}
+
+.settings-btn-danger:hover {
+  background: rgba(185, 28, 28, 0.06);
+}
+
+/* ── Footer ── */
+.settings-footer {
+  text-align: center;
+  padding: 20px 16px;
+  font-size: 0.8rem;
+  color: var(--muted, #5b5b5b);
+  border-top: 1px solid var(--border, rgba(51, 51, 51, 0.12));
+}
+
+/* ── Mobile ── */
+@media (max-width: 480px) {
+  .settings-theme-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, useCallback } from 'react';
 import { seedMissions, seedRequests, seedShowcase } from './data/seed';
 import { usePersistentState } from './hooks/usePersistentState';
 import { useGoogleSheets } from './hooks/useGoogleSheets';
+import { useSettings } from './contexts/SettingsContext';
 import { AppShell } from './components/templates/AppShell';
 import type {
   ClearEntry,
@@ -10,7 +11,6 @@ import type {
   MissionRequest,
   MissionType,
   ShowcaseEntry,
-  Role
 } from './types';
 import './styles/theme.css';
 import './styles/app.css';
@@ -27,7 +27,6 @@ const courses: Course[] = [
   'Blender + 3D造形'
 ];
 
-type ThemeKey = 'warm' | 'cool' | 'dark';
 type MissionFormState = Omit<Mission, 'id' | 'clears'>;
 
 function createEmptyMissionForm(): MissionFormState {
@@ -44,32 +43,25 @@ function createEmptyMissionForm(): MissionFormState {
 }
 
 function App() {
-  const [role, setRole] = useState<Role>('general');
-  const [adminPin, setAdminPin] = usePersistentState<string>('adminPin', () => '2468');
-  const [theme, setTheme] = usePersistentState<ThemeKey>('theme', () => 'warm');
-  const [boardInterval, setBoardInterval] = usePersistentState<number>('boardInterval', () => 10);
-  const [tickerDuration, setTickerDuration] = usePersistentState<number>('tickerDuration', () => 30);
-  const [settingsOpen, setSettingsOpen] = useState(false);
+  const { role, boardInterval, tickerDuration, registerResetData } = useSettings();
   const [activeCourseIndex, setActiveCourseIndex] = useState(0);
 
-  // usePersistentState is still useful for editing/clears if we want to persist local changes on top of sheet data
-  // But for now, let's treat Sheet data as master for the mission list.
   const [missions, setMissions] = usePersistentState<Mission[]>('missions', () => seedMissions);
-  
-  const { data: sheetMissions, loading: sheetLoading, error: sheetError } = useGoogleSheets();
+
+  const { data: sheetMissions } = useGoogleSheets();
 
   // Sync Sheet data to filtered missions when loaded
   useEffect(() => {
     if (sheetMissions) {
       console.log('Loaded missions from Sheet:', sheetMissions.length);
-      
+
       setMissions((prevMissions: Mission[]) => {
         return sheetMissions.map((sheetMsg: Mission) => {
           const localMatch = prevMissions.find((m: Mission) => m.id === sheetMsg.id);
           return {
             ...sheetMsg,
             clears: (sheetMsg.clears && sheetMsg.clears.length > 0) ? sheetMsg.clears : (localMatch ? localMatch.clears : []),
-            participants: sheetMsg.participants || localMatch?.participants || 0 
+            participants: sheetMsg.participants || localMatch?.participants || 0
           };
         });
       });
@@ -83,20 +75,17 @@ function App() {
 
   const [missionForm, setMissionForm] = useState<MissionFormState>(createEmptyMissionForm);
   const [editingId, setEditingId] = useState<string | null>(null);
-  useEffect(() => {
-    document.body.setAttribute('data-theme', theme);
-  }, [theme]);
 
   // data versioning: if version mismatch, reseed local data (Only if NO sheet data loaded yet?)
   useEffect(() => {
     if (!sheetMissions) {
-       const storedVersion = localStorage.getItem('mission-board:dataVersion');
-       if (storedVersion !== DATA_VERSION) {
-         setMissions(seedMissions);
-         setRequests(seedRequests);
-         setShowcase(seedShowcase);
-         localStorage.setItem('mission-board:dataVersion', DATA_VERSION);
-       }
+      const storedVersion = localStorage.getItem('mission-board:dataVersion');
+      if (storedVersion !== DATA_VERSION) {
+        setMissions(seedMissions);
+        setRequests(seedRequests);
+        setShowcase(seedShowcase);
+        localStorage.setItem('mission-board:dataVersion', DATA_VERSION);
+      }
     }
   }, [setMissions, setRequests, setShowcase, sheetMissions]);
 
@@ -112,6 +101,18 @@ function App() {
     }
   }, [missions, setMissions]);
 
+  const resetDataImpl = useCallback(() => {
+    setMissions(seedMissions);
+    setRequests(seedRequests);
+    setShowcase(seedShowcase);
+    localStorage.setItem('mission-board:dataVersion', DATA_VERSION);
+  }, [setMissions, setRequests, setShowcase]);
+
+  // Register resetData with the context so SettingsPage can call it
+  useEffect(() => {
+    registerResetData(resetDataImpl);
+  }, [registerResetData, resetDataImpl]);
+
   const stats = useMemo(() => {
     const total = missions.length;
     const cleared = missions.reduce((sum, m) => sum + (m.clears?.length || 0), 0);
@@ -119,31 +120,21 @@ function App() {
     return { total, cleared, active };
   }, [missions]);
 
-  // Random Mission (not implemented in original but required by props)
   const randomMission = null;
 
   const courseMissions = useMemo(() => {
     return courses.map((course) =>
-      missions.filter((m) => {
-        return m.course === course;
-      })
+      missions.filter((m) => m.course === course)
     );
   }, [missions]);
 
-  const activeList = courseMissions[activeCourseIndex] ?? [];
-
   const clearTickerItems = useMemo(
     () => {
-      // 1. Filter missions that have clears
       const missionsWithClears = missions.filter((m) => m.clears && m.clears.length > 0);
-
-      // 2. Map to Ticker Item format (Grouped)
       const items = missionsWithClears.map((m) => {
-        // Sort clears by date desc to find the latest
         const sortedClears = [...m.clears].sort((a, b) => (a.clearedAt < b.clearedAt ? 1 : -1));
         const latestClearAt = sortedClears[0]?.clearedAt || new Date().toISOString();
         const names = sortedClears.map((c) => c.studentName);
-
         return {
           id: m.id,
           missionTitle: m.title,
@@ -152,8 +143,6 @@ function App() {
           clearedAt: latestClearAt
         };
       });
-
-      // 3. Sort missions by their latest clear date
       return items
         .sort((a, b) => (a.clearedAt < b.clearedAt ? 1 : -1))
         .slice(0, 16);
@@ -187,6 +176,7 @@ function App() {
   const handleEditMission = useCallback((mission: Mission) => {
     setEditingId(mission.id);
     const { id, clears, ...rest } = mission;
+    void id; void clears;
     setMissionForm(rest);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
@@ -254,50 +244,9 @@ function App() {
     setRequests(requests.map((r) => (r.id === requestId ? { ...r, status: 'rejected' } : r)));
   }, [requests, setRequests]);
 
-  const resetData = useCallback(() => {
-    if (!confirm('すべてのデータを初期状態に戻しますか？')) return;
-    setMissions(seedMissions);
-    setRequests(seedRequests);
-    setShowcase(seedShowcase);
-    localStorage.setItem('mission-board:dataVersion', DATA_VERSION);
-  }, [setMissions, setRequests, setShowcase]);
-
-  const requestAdminMode = useCallback(() => {
-    if (role === 'admin') return;
-    const input = prompt('Admin PIN を入力してください');
-    if (input === null) return;
-    if (input === adminPin) {
-      setRole('admin');
-    } else {
-      alert('PIN が違います');
-      setRole('general');
-    }
-  }, [role, adminPin, setRole]);
-
-  const handlePinChange = useCallback((e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = new FormData(e.currentTarget);
-    const current = (form.get('currentPin') as string) || '';
-    const next = (form.get('nextPin') as string) || '';
-    if (current !== adminPin) {
-      alert('現在のPINが一致しません');
-      return;
-    }
-    if (next.trim().length < 4) {
-      alert('PINは4桁以上にしてください');
-      return;
-    }
-    setAdminPin(next.trim());
-    alert('PINを更新しました');
-    e.currentTarget.reset();
-  }, [adminPin, setAdminPin]);
-
   return (
     <AppShell
       role={role}
-      setRole={setRole}
-      theme={theme}
-      setTheme={setTheme}
       courses={courses}
       courseMissions={courseMissions}
       activeCourseIndex={activeCourseIndex}
@@ -317,17 +266,10 @@ function App() {
       requests={requests}
       approveRequest={approveRequest}
       rejectRequest={rejectRequest}
-      handlePinChange={handlePinChange}
       handleRequestSubmit={handleRequestSubmit}
       clearTickerItems={clearTickerItems}
-      settingsOpen={settingsOpen}
-      setSettingsOpen={setSettingsOpen}
-      requestAdminMode={requestAdminMode}
-      resetData={resetData}
       boardInterval={boardInterval}
-      setBoardInterval={setBoardInterval}
       tickerDuration={tickerDuration}
-      setTickerDuration={setTickerDuration}
     />
   );
 }
