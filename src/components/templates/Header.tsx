@@ -13,10 +13,16 @@ export const Header: React.FC = React.memo(() => {
         <span className="logo-dot" />
         <div>
           <p className="mini">Mission Based Idea Helper</p>
-          <strong>ミッションボード</strong>
+          <strong>Questarium</strong>
         </div>
       </Link>
       <nav className="top-actions">
+        <Link
+          to="/"
+          className={`nav-link${pathname === '/' ? ' active' : ''}`}
+        >
+          ホーム
+        </Link>
         <Link
           to="/about"
           className={`nav-link${pathname.startsWith('/about') ? ' active' : ''}`}
